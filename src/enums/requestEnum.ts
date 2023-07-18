@@ -1,19 +1,16 @@
 /**
- * @description: ContentType
- */
-export enum ContentTypeEnum {
-  // form-data qs
-  FORM_URLENCODED = "application/x-www-form-urlencoded;charset=UTF-8",
-  // form-data upload
-  FORM_DATA = "multipart/form-data;charset=UTF-8",
-  // json
-  JSON = "application/json;charset=UTF-8"
-}
-
-/**
- * @description: 与后端协定的状态 code
+ * @description: 响应结果
+ * @argument SUCCESS  请求成功
+ * @argument EXPIRE   token请求失效或校验失败
+ * @argument ERROR    请求错误
+ * @argument TIMEOUT  请求超时
+ * @argument TYPE     请求类型
  */
 export enum ResultEnum {
-  SUCCESS = 0,
-  ERROR = 1
+  SUCCESS = 200,
+  EXPIRE = 203,
+  ERROR = -1,
+  ERRMESSAGE = "请求失败",
+  TIMEOUT = 25000,
+  TYPE = "success"
 }

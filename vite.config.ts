@@ -18,6 +18,8 @@ const root: string = process.cwd();
 export default defineConfig(({ mode }) => {
   // 环境变量
   const env = loadEnv(mode, root, "");
+  console.log(env);
+
   return {
     base: env.VITE_PUBLIC_PATH || "/",
     plugins: [
@@ -54,12 +56,14 @@ export default defineConfig(({ mode }) => {
       }
     },
     server: {
-      host: true,
-      // 仅在 proxy 中配置的代理前缀， mock-dev-server 才会拦截并 mock
-      // doc: https://github.com/pengzhanbo/vite-plugin-mock-dev-server
+      host: "localhost",
+      port: Number(env.VITE_APP_PORT),
       proxy: {
-        "^/dev-api": {
-          target: ""
+        [env.VITE_APP_BASE_API]: {
+          target: env.VITE_APP_BASE_URL,
+          changeOrigin: true,
+          rewrite: path =>
+            path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), "")
         }
       }
     },
