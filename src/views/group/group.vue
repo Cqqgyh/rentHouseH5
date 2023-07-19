@@ -5,7 +5,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup lang="ts" name="Group">
 import { getDictionary } from "@/api/template";
 
 getDictionary();

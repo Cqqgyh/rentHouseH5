@@ -18,8 +18,6 @@ const root: string = process.cwd();
 export default defineConfig(({ mode }) => {
   // 环境变量
   const env = loadEnv(mode, root, "");
-  console.log(env);
-
   return {
     base: env.VITE_PUBLIC_PATH || "/",
     plugins: [
