@@ -7,7 +7,7 @@
     <template #price>
       <!--      价格-->
       <span class="text-red-500 text-[14px]">￥</span>
-      <span class="text-red-500 text-[20px]">{{ data.rent || 2500 }}</span>
+      <span class="text-red-500 text-[20px]">{{ data.rent}}</span>
     </template>
     <!--    thumb-->
     <template #thumb>
