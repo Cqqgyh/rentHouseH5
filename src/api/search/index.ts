@@ -1,6 +1,8 @@
 import http from "@/utils/http";
 import type {
+  PaymentInfoInterface,
   RegionInterface,
+  RoomInterface,
   RoomListQueryInterface
 } from "@/api/search/types";
 import type { PageRes } from "@/api/types";
@@ -9,10 +11,7 @@ import type { PageRes } from "@/api/types";
  * @param params
  */
 export function getRoomList(params: Partial<RoomListQueryInterface>) {
-  return http.get<PageRes<RoomListQueryInterface>>(
-    `/app/room/pageItem`,
-    params
-  );
+  return http.get<PageRes<RoomInterface>>(`/app/room/pageItem`, params);
 }
 /**
  * @description 查询省市区列表
@@ -43,4 +42,10 @@ export function getDistrictList(cityId: number | string) {
   return http.get<RegionInterface[]>(
     `/app/region/district/listByCityId?id=${cityId}`
   );
+}
+/**
+ * @description 获取支付方式列表
+ */
+export function getPaymentTypeList() {
+  return http.get<PaymentInfoInterface[]>(`/app/payment/list`);
 }

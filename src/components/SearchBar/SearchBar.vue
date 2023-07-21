@@ -47,19 +47,19 @@
             size="small"
             class="basis-2/5"
             round
-            @click="onCancel"
+            @click="onCancelHandle"
           >
             取消
           </van-button>
-          <!--        确定-->
+          <!--        查找-->
           <van-button
             type="primary"
             size="small"
             class="basis-2/5"
             round
-            @click="onConfirm"
+            @click="onConfirmHandle"
           >
-            确定
+            查找
           </van-button>
         </div>
       </div>
@@ -69,7 +69,7 @@
         <van-row gutter="10" justify="space-around" class="mt-[5px]">
           <van-col
             class="text-center border p-[4px] mt-[5px] transition-all"
-            :class="{ 'rent-checked': item.isCheck }"
+            :class="{ 'other-checked': item.isCheck }"
             @click="rentClickHandle(item)"
             v-for="item in rentInfoList"
             :key="item.label"
@@ -86,19 +86,95 @@
           size="small"
           class="basis-2/5"
           round
-          @click="onCancel"
+          @click="onCancelHandle"
         >
           取消
         </van-button>
-        <!--        确定-->
+        <!--        查找-->
         <van-button
           type="primary"
           size="small"
           class="basis-2/5"
           round
-          @click="onConfirm"
+          @click="onConfirmHandle"
         >
-          确定
+          查找
+        </van-button>
+      </div>
+    </van-dropdown-item>
+    <van-dropdown-item title="付款方式">
+      <div class="comment-padding">
+        <van-row gutter="10" justify="space-around" class="mt-[5px]">
+          <van-col
+            class="text-center border p-[4px] mt-[5px] transition-all"
+            :class="{ 'other-checked': item.isCheck }"
+            @click="paymentClickHandle(item)"
+            v-for="item in paymentInfoList"
+            :key="item.label"
+            span="7"
+            >{{ item.label }}
+          </van-col>
+        </van-row>
+      </div>
+
+      <div class="flex comment-padding justify-between my-[10px]">
+        <!--        取消-->
+        <van-button
+          type="default"
+          size="small"
+          class="basis-2/5"
+          round
+          @click="onCancelHandle"
+        >
+          取消
+        </van-button>
+        <!--        查找-->
+        <van-button
+          type="primary"
+          size="small"
+          class="basis-2/5"
+          round
+          @click="onConfirmHandle"
+        >
+          查找
+        </van-button>
+      </div>
+    </van-dropdown-item>
+    <van-dropdown-item title="排序">
+      <div class="comment-padding">
+        <van-row gutter="10" justify="space-around" class="mt-[5px]">
+          <van-col
+            class="text-center border p-[4px] mt-[5px] transition-all"
+            :class="{ 'other-checked': item.isCheck }"
+            @click="orderTypeClickHandle(item)"
+            v-for="item in orderTypeInfoList"
+            :key="item.label"
+            span="7"
+            >{{ item.label }}
+          </van-col>
+        </van-row>
+      </div>
+
+      <div class="flex comment-padding justify-between my-[10px]">
+        <!--        取消-->
+        <van-button
+          type="default"
+          size="small"
+          class="basis-2/5"
+          round
+          @click="onCancelHandle"
+        >
+          取消
+        </van-button>
+        <!--        查找-->
+        <van-button
+          type="primary"
+          size="small"
+          class="basis-2/5"
+          round
+          @click="onConfirmHandle"
+        >
+          查找
         </van-button>
       </div>
     </van-dropdown-item>
@@ -112,14 +188,22 @@ import type {
   RegionInterface,
   RoomListQueryInterface
 } from "@/api/search/types";
-import { getCityList, getDistrictList, getProvinceList } from "@/api/search";
+import {
+  getCityList,
+  getDistrictList,
+  getPaymentTypeList,
+  getProvinceList
+} from "@/api/search";
+import { SearchOrderType, SearchOrderTypeMap } from "@/enums/constEnums";
+const props = defineProps({
+  confirmCallback: {
+    type: Function,
+    default: () => ({})
+  }
+});
 // 组件实例
 const menuRef = ref<DropdownMenuInstance>();
-const formData = ref<RoomListQueryInterface>({
-  // 页码
-  current: 1,
-  // 每页条数
-  size: 10,
+const formData = ref<Omit<RoomListQueryInterface, "current" | "size">>({
   // 省市区
   provinceId: "",
   cityId: "",
@@ -130,7 +214,7 @@ const formData = ref<RoomListQueryInterface>({
   //   支付方式
   paymentTypeId: "",
   //   	价格排序方式,可用值:desc,asc
-  orderType: "desc"
+  orderType: ""
 });
 
 //#region <省市区查询相关>
@@ -291,12 +375,6 @@ const provinceChangeCallback = async () => {
     await getCityListHandle(provinceId);
   }
 };
-// 省份清除回调
-const provinceClearCallback = () => {
-  formData.value.provinceId = "";
-  resetCity();
-  resetDistrict();
-};
 // 城市改变回调
 const cityChangeCallback = async () => {
   let cityId = formData.value.cityId;
@@ -304,21 +382,6 @@ const cityChangeCallback = async () => {
     resetDistrict();
     await getDistrictListHandle(cityId);
   }
-};
-// 城市清除回调
-const cityClearCallback = () => {
-  console.log("清空城市");
-  formData.value.cityId = "";
-  resetDistrict();
-};
-// 区域改变回调
-const districtChangeCallback = async () => {
-  console.log("区域改变");
-};
-// 区域清除回调
-const districtClearCallback = () => {
-  console.log("清空区域");
-  formData.value.districtId = "";
 };
 
 //#endregion
@@ -372,20 +435,81 @@ function rentClickHandle(item: LabelValueInterface<(number | string)[]>) {
 }
 
 //#endregion
-const onConfirm = () => {
+//#region <付款方式>
+// 价格数据
+const paymentInfoList = ref<LabelValueInterface[]>([]);
+
+// 获取支付方式列表
+async function getPaymentListHandle() {
+  try {
+    const { data } = await getPaymentTypeList();
+
+    paymentInfoList.value =
+      data?.map(item => ({
+        label: item.name,
+        value: item.id,
+        isCheck: false
+      })) || [];
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 价格点击
+function paymentClickHandle(item: LabelValueInterface) {
+  paymentInfoList.value.forEach(item2 => {
+    if (item.label === item2.label) {
+      item.isCheck = !item.isCheck;
+      formData.value.paymentTypeId = item.isCheck ? item.value : "";
+    } else {
+      item2.isCheck = false;
+    }
+  });
+}
+
+//#endregion
+//#region <排序>
+// 价格数据
+const orderTypeInfoList = ref<LabelValueInterface[]>(
+  SearchOrderTypeMap.map(item => ({
+    ...item,
+    isCheck: false
+  }))
+);
+// 价格点击
+function orderTypeClickHandle(item: LabelValueInterface) {
+  orderTypeInfoList.value.forEach(item2 => {
+    if (item.label === item2.label) {
+      item.isCheck = !item.isCheck;
+      formData.value.orderType = item.isCheck
+        ? (item.value as SearchOrderType)
+        : "";
+    } else {
+      item2.isCheck = false;
+    }
+  });
+}
+
+//#endregion
+const onConfirmHandle = () => {
   // itemRef.value?.toggle();
   // 或者
   menuRef.value?.close();
   //   请求接口
   console.log(formData.value);
   // getRoomList(formData.value);
+  console.log("props.confirmCallback", !!props.confirmCallback);
+  props.confirmCallback && props.confirmCallback(formData.value);
 };
 // 取消
-const onCancel = () => {
+const onCancelHandle = () => {
   menuRef.value?.close();
 };
 onMounted(() => {
+  // 获取省份列表
   getProvinceListHandle();
+  // 获取支付方式列表
+  getPaymentListHandle();
 });
 </script>
 
@@ -396,7 +520,7 @@ onMounted(() => {
 }
 
 // 价格选择
-.rent-checked {
+.other-checked {
   background-color: var(--van-primary-color);
   color: var(--van-white);
 }
