@@ -2,6 +2,7 @@
   <van-card
     :title="`${data.apartmentInfo.name} ${data.roomNumber}房间`"
     :desc="`${data.apartmentInfo.provinceName} ${data.apartmentInfo.cityName} ${data.apartmentInfo.districtName}`"
+    @click="goRoomDetail"
   >
     <template #price>
       <!--      价格-->
@@ -36,8 +37,10 @@
 <script setup lang="ts">
 import type { RoomInterface } from "@/api/search/types";
 import type { PropType } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
-defineProps({
+const props = defineProps({
   // 房间的信息数据
   data: {
     type: Object as PropType<RoomInterface>,
@@ -45,6 +48,10 @@ defineProps({
     readOnly: true
   }
 });
+// 跳转到房间的详情页面
+const goRoomDetail = () => {
+  router.push({ path: "/roomDetail", query: { id: props.data.id } });
+};
 </script>
 
 <style scoped></style>
