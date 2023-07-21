@@ -26,7 +26,9 @@ export const service: AxiosInstance = axios.create({
  */
 service.interceptors.request.use(
   config => {
-    NProgress.start();
+    if ((config as HttpConfigProps).showNProgress) {
+      NProgress.start();
+    }
     const token = getToken();
     if (token) {
       config.headers.ACCESS_TOKEN = token;
@@ -113,11 +115,14 @@ service.interceptors.response.use(
  * @description: 导出封装的请求方法
  * @returns {*}
  */
+interface HttpConfigProps extends AxiosRequestConfig {
+  showNProgress?: boolean;
+}
 const http = {
   get<T>(
     url: string,
     params?: object,
-    config?: AxiosRequestConfig
+    config?: HttpConfigProps
   ): Promise<ResultData<T>> {
     return service.get(url, { params, ...config });
   },
@@ -125,7 +130,7 @@ const http = {
   post<T>(
     url: string,
     data?: object,
-    config?: AxiosRequestConfig
+    config?: HttpConfigProps
   ): Promise<ResultData<T>> {
     return service.post(url, data, config);
   },
@@ -133,7 +138,7 @@ const http = {
   put<T>(
     url: string,
     data?: object,
-    config?: AxiosRequestConfig
+    config?: HttpConfigProps
   ): Promise<ResultData<T>> {
     return service.put(url, data, config);
   },
