@@ -13,7 +13,7 @@
         class="text-center h-[50px] pt-[10px]"
         ref="bottomLoadRef"
         id="bottomLoadRef"
-        v-show="!searchNotFoundRef"
+        v-show="!searchNotFoundRef && !loading"
       >
         <van-loading v-if="loadingMore && !finished">加载中...</van-loading>
         <span class="finish-text" v-if="finished">没有更多了...</span>
@@ -53,14 +53,19 @@ const searchNotFoundRef = ref<HTMLElement | null>(null);
 // 监听底部加载
 watch(bottomLoadRefIsVisibility, val => {
   console.log("bottomLoadRefIsVisibility", val);
+  // 执行刷新过程中，不再触发
+  if (loading.value) {
+    return;
+  }
   if (val) {
     onLoad();
   }
 });
+// 刷新
 const onRefresh = async () => {
   //   重置信息
   resetInfo();
-  await request();
+  await onLoad();
   loading.value = false;
 };
 // 触底加载
@@ -89,13 +94,6 @@ async function request() {
   //   如果数据不足一页，说明已经加载全部数据
   pageInfo.value.current++;
 }
-// 重置请求
-function resetRequest() {
-  // 重置分页信息
-  resetInfo();
-  // 重置请求
-  request();
-}
 // 全部加载外部，后续触底不需要再重新请求
 function setFinished(flag: boolean = false) {
   finished.value = flag;
@@ -105,7 +103,7 @@ onMounted(() => {
 });
 // 对外暴露
 defineExpose({
-  resetRequest,
+  onRefresh,
   setFinished
 });
 </script>
