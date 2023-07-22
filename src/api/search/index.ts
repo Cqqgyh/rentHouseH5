@@ -2,6 +2,7 @@ import http from "@/utils/http";
 import type {
   PaymentInfoInterface,
   RegionInterface,
+  RoomDetailInterface,
   RoomInterface,
   RoomListQueryInterface
 } from "@/api/search/types";
@@ -48,4 +49,11 @@ export function getDistrictList(cityId: number | string) {
  */
 export function getPaymentTypeList() {
   return http.get<PaymentInfoInterface[]>(`/app/payment/list`);
+}
+/**
+ * @description 根据id获取房间的详细信息
+ * @param id
+ */
+export function getRoomDetailById(id: number | string) {
+  return http.get<RoomDetailInterface>(`/app/room/getDetailById?id=${id}`);
 }

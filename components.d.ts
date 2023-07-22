@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ApartmentCard: typeof import('./src/components/ApartmentCard/ApartmentCard.vue')['default']
     LeDropdown: typeof import('./src/components/DropdownBar/components/le-dropdown/le-dropdown.vue')['default']
     LePicker: typeof import('./src/components/DropdownBar/components/le-dropdown/components/le-picker.vue')['default']
     NavBar: typeof import('./src/components/NavBar/index.vue')['default']
@@ -33,7 +34,11 @@ declare module '@vue/runtime-core' {
     VanNavBar: typeof import('vant/es')['NavBar']
     VanPullRefresh: typeof import('vant/es')['PullRefresh']
     VanRow: typeof import('vant/es')['Row']
+    VanSkeleton: typeof import('vant/es')['Skeleton']
     VanSpace: typeof import('vant/es')['Space']
+    VanSticky: typeof import('vant/es')['Sticky']
+    VanSwipe: typeof import('vant/es')['Swipe']
+    VanSwipeItem: typeof import('vant/es')['SwipeItem']
     VanSwitch: typeof import('vant/es')['Switch']
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']

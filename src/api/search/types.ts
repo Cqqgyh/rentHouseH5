@@ -78,6 +78,20 @@ export interface ApartmentInterface {
   longitude: number | string;
   phone: string;
   isRelease: string | number;
+  minRent?: number | string;
+  // 	公寓配套id
+  facilityInfoIds?: number[];
+  // 	公寓配套信息
+  facilityInfoList?: FacilityInfoInterface[];
+  // 公寓标签信息
+  labelInfoList?: LabelInfoInterface[];
+  // 	公寓杂费值信息
+  feeValueVoList?: FeeInfoInterface["feeValueList"];
+  // 图片信息
+  graphVoList?: {
+    url: string;
+    name: number;
+  }[];
 }
 // 标签信息
 export interface LabelInfoInterface {
@@ -97,4 +111,52 @@ export interface TermInfoInterface {
   id: number;
   unit: string;
   monthCount: string;
+}
+// 房间 详情信息
+export interface RoomDetailInterface {
+  id: number | string;
+  roomNumber: number | string;
+  rent: number | string;
+  apartmentId: number | string;
+  isRelease: string | number;
+  leaseEndDate: string;
+  checkInStatus: string;
+  appApartmentItemVo: ApartmentInterface;
+  // 	属性信息列表
+  attrValueVoList?: AttrValueInfoInterface[];
+  // 	公寓配套信息
+  facilityInfoList?: FacilityInfoInterface[];
+  // 公寓标签信息
+  labelInfoList?: LabelInfoInterface[];
+  // 	支付方式列表
+  paymentTypeList?: PaymentInfoInterface[];
+  // 可选租期列表
+  leaseTermList?: TermInfoInterface[];
+  // 	公寓杂费值信息
+  feeValueVoList?: FeeValueInfoInterface[];
+  // 图片信息
+  graphVoList?: {
+    url: string;
+    name: number;
+  }[];
+}
+// 杂费值信息
+export interface FeeInfoInterface {
+  id: number | string;
+  name: string;
+  feeValueList: FeeValueInfoInterface[];
+}
+export interface FeeValueInfoInterface {
+  id: number | string;
+  name: string;
+  unit: string;
+  feeKeyId: number | string;
+  feeKeyName?: number | string;
+}
+// 房间基本信息
+export interface AttrValueInfoInterface {
+  id: number | string;
+  name: string;
+  attrKeyId: number | string;
+  attrKeyName?: string;
 }
