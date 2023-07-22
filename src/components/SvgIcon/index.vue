@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { isExternal } from "@/utils/validate";
 import { computed } from "vue";
+import type { CSSProperties } from "vue";
 
 interface Props {
   name: string;
   className?: string;
+  size?: number | string;
+  spin?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   name: "",
-  className: ""
+  className: "",
+  size: 20,
+  spin: false
 });
 
 const isExternalIcon = computed(() => isExternal(props.name));
@@ -19,6 +24,14 @@ const svgClass = computed(() => {
   } else {
     return "svg-icon";
   }
+});
+const getStyle = computed((): CSSProperties => {
+  const { size } = props;
+  let s = `${size}`;
+  s = `${s.replace("px", "")}px`;
+  return {
+    fontSize: s
+  };
 });
 // 外链 icon
 const styleExternalIcon = computed(() => {
@@ -36,7 +49,13 @@ const styleExternalIcon = computed(() => {
     class="svg-external-icon svg-icon"
     v-bind="$attrs"
   />
-  <svg v-else :class="svgClass" aria-hidden="true" v-bind="$attrs">
+  <svg
+    v-else
+    :class="[svgClass, spin && 'svg-icon-spin']"
+    aria-hidden="true"
+    :style="getStyle"
+    v-bind="$attrs"
+  >
     <use :xlink:href="iconName" />
   </svg>
 </template>
@@ -54,5 +73,19 @@ const styleExternalIcon = computed(() => {
   background-color: currentColor;
   mask-size: cover !important;
   display: inline-block;
+}
+.svg-icon-spin {
+  animation: circle 1.5s infinite linear;
+}
+
+/* 旋转动画 */
+@keyframes circle {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
