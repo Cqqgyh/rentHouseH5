@@ -1,12 +1,13 @@
 import http from "@/utils/http";
 import type {
+  ApartmentInterface,
   PaymentInfoInterface,
   RegionInterface,
   RoomDetailInterface,
   RoomInterface,
   RoomListQueryInterface
 } from "@/api/search/types";
-import type { PageRes } from "@/api/types";
+import type { PageRes, ReqPage } from "@/api/types";
 /**
  * @description 分页查询房间列表
  * @param params
@@ -56,4 +57,24 @@ export function getPaymentTypeList() {
  */
 export function getRoomDetailById(id: number | string) {
   return http.get<RoomDetailInterface>(`/app/room/getDetailById?id=${id}`);
+}
+
+/**
+ * @description 根据id获取公寓信息
+ */
+export function getApartmentDetailById(id: number | string) {
+  return http.get<ApartmentInterface>(`/app/apartment/getDetailById?id=${id}`);
+}
+
+/**
+ * @description 根据公寓id分页查询房间列表
+ * @param params
+ */
+export function getRoomListByApartmentId(
+  params: ReqPage & { id: number | string }
+) {
+  return http.get<PageRes<RoomInterface>>(
+    `/app/room/pageItemByApartmentId`,
+    params
+  );
 }

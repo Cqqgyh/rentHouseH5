@@ -8,6 +8,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "房间详情"
     }
+  },
+  {
+    name: "ApartmentDetail",
+    path: "/apartmentDetail",
+    component: () => import("@/views/apartmentDetail/apartmentDetail.vue"),
+    meta: {
+      title: "公寓详情"
+    }
   }
 ];
 
