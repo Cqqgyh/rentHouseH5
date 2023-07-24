@@ -164,7 +164,9 @@
     </div>
     <!--    预约看房-->
     <van-sticky :offset-bottom="0" position="bottom">
-      <van-button type="primary" block>预约看房</van-button>
+      <van-button type="primary" block @click="appointmentToViewHandle"
+        >预约看房</van-button
+      >
     </van-sticky>
   </van-skeleton>
 </template>
@@ -172,10 +174,11 @@
 import { getRoomDetailById } from "@/api/search";
 import { onMounted, ref } from "vue";
 import type { RoomDetailInterface } from "@/api/search/types";
-import { useRoute } from "vue-router";
 import { useMap } from "@/hooks/useMap";
 import poiMarkerRed from "@/assets/poi-marker-red.png";
 import ApartmentCard from "@/components/ApartmentCard/ApartmentCard.vue";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
 const route = useRoute();
 // 房间的详情信息
 const roomDetailInfo = ref<RoomDetailInterface>({} as RoomDetailInterface);
@@ -207,6 +210,14 @@ function initMap(opts?: { lng: number; lat: number }) {
   map.add(marker);
   map.setFitView();
 }
+// 预约看房
+const appointmentToViewHandle = () => {
+  console.log("appointmentToViewHandle");
+  router.push({
+    path: "/appointment",
+    query: { apartmentId: roomDetailInfo.value.apartmentId }
+  });
+};
 //#endregion
 onMounted(async () => {
   await getRoomDetailHandle();
