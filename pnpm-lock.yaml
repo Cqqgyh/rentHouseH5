@@ -16,6 +16,7 @@ specifiers:
   axios: ^1.4.0
   cnjm-postcss-px-to-viewport: ^1.0.0
   commitlint: ^17.4.4
+  dayjs: ^1.11.9
   eslint: ^8.22.0
   eslint-plugin-vue: ^9.3.0
   husky: ^8.0.3
@@ -46,6 +47,7 @@ specifiers:
 dependencies:
   '@amap/amap-jsapi-loader': registry.npmmirror.com/@amap/amap-jsapi-loader/1.0.1
   axios: registry.npmmirror.com/axios/1.4.0
+  dayjs: registry.npmmirror.com/dayjs/1.11.9
   normalize.css: 8.0.1
   nprogress: 0.2.0
   pinia: registry.npmmirror.com/pinia/2.1.4_typescript@4.7.4+vue@3.3.4
@@ -5428,6 +5430,12 @@ packages:
     name: dateformat
     version: 3.0.3
     dev: true
+
+  registry.npmmirror.com/dayjs/1.11.9:
+    resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.9.tgz}
+    name: dayjs
+    version: 1.11.9
+    dev: false
 
   registry.npmmirror.com/decamelize-keys/1.1.1:
     resolution: {integrity: sha512-WiPxgEirIV0/eIOMcnFBA3/IJZAZqKnwAwWyvvdi4lsr1WCN22nhdf/3db3DoZcUjTV2SqfzIwNyp6y2xs3nmg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/decamelize-keys/-/decamelize-keys-1.1.1.tgz}

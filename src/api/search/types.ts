@@ -1,5 +1,6 @@
 import type { ReqPage } from "@/api/types";
 import type { SearchOrderType } from "@/enums/constEnums";
+import type { AppointmentStatus } from "@/enums/constEnums";
 
 export interface RoomListQueryInterface extends ReqPage {
   // 省份id
@@ -159,4 +160,23 @@ export interface AttrValueInfoInterface {
   name: string;
   attrKeyId: number | string;
   attrKeyName?: string;
+}
+// 预约请求接口
+export interface AppointmentQueryInterface {
+  id?: number | string;
+  // 用户姓名
+  name: string;
+  // phone	用户手机号码
+  phone: string;
+  // apartmentId	公寓id
+  apartmentId: number | string;
+  // appointmentTime	预约时间
+  appointmentTime: string;
+  // 	备注信息
+  additionalInfo: string;
+  // 预约状态
+  appointmentStatus?: AppointmentStatus;
+}
+export interface AppointmentInfoInterface extends AppointmentQueryInterface {
+  appApartmentItemVo: ApartmentInterface;
 }

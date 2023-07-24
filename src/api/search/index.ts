@@ -1,6 +1,8 @@
 import http from "@/utils/http";
 import type {
   ApartmentInterface,
+  AppointmentInfoInterface,
+  AppointmentQueryInterface,
   PaymentInfoInterface,
   RegionInterface,
   RoomDetailInterface,
@@ -76,5 +78,22 @@ export function getRoomListByApartmentId(
   return http.get<PageRes<RoomInterface>>(
     `/app/room/pageItemByApartmentId`,
     params
+  );
+}
+
+/**
+ * @description 保存或更新预约
+ */
+export function saveOrUpdateAppointment(params: AppointmentQueryInterface) {
+  return http.post(`/app/appointment/saveOrUpdate`, params);
+}
+
+/**
+ * @description 根据id查询预约详情信息
+ * @param id
+ */
+export function getAppointmentDetailById(id: number | string) {
+  return http.get<AppointmentInfoInterface>(
+    `/app/appointment/getDetailById?id=${id}`
   );
 }

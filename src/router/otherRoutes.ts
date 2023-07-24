@@ -16,6 +16,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "公寓详情"
     }
+  },
+  {
+    name: "Appointment",
+    path: "/appointment",
+    component: () => import("@/views/appointment/appointment.vue"),
+    meta: {
+      title: "预约看房"
+    }
   }
 ];
 
