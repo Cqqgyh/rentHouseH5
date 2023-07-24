@@ -80,7 +80,7 @@
       <!--        地图容器-->
       <div id="container" class="w-[100vw] h-[30vh]"></div>
     </div>
-    <!--    所属公寓-->
+    <!--    可选房间列表-->
     <div>
       <div class="base-info-title main-container py-[4px]">可选房间列表</div>
       <div class="my-[5px] pb-[50px]">
