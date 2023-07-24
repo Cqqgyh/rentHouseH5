@@ -2,7 +2,7 @@
   <van-card
     :title="`${data.name}`"
     :desc="`${data.provinceName} ${data.cityName} ${data.districtName}`"
-    @click="goRoomDetail"
+    @click="goApartmentDetail"
   >
     <template #price>
       <!--      价格-->
@@ -49,8 +49,8 @@ const props = defineProps({
   }
 });
 // 跳转到房间的详情页面
-const goRoomDetail = () => {
-  router.push({ path: "/roomDetail", query: { id: props.data.id } });
+const goApartmentDetail = () => {
+  router.push({ path: "/apartmentDetail", query: { id: props.data.id } });
 };
 </script>
 

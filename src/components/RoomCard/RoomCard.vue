@@ -1,13 +1,20 @@
 <template>
   <van-card
-    :title="`${data.apartmentInfo.name} ${data.roomNumber}房间`"
-    :desc="`${data.apartmentInfo.provinceName} ${data.apartmentInfo.cityName} ${data.apartmentInfo.districtName}`"
+    :desc="`${data?.apartmentInfo?.provinceName || ''} ${
+      data?.apartmentInfo?.cityName || ''
+    } ${data?.apartmentInfo?.districtName || ''}`"
     @click="goRoomDetail"
   >
+    <template #title>
+      <!--      价格-->
+      <span class="text-[14px] font-bold">{{
+        `${data.apartmentInfo?.name || ""} ${data.roomNumber}房间`
+      }}</span>
+    </template>
     <template #price>
       <!--      价格-->
       <span class="text-red-500 text-[14px]">￥</span>
-      <span class="text-red-500 text-[20px]">{{ data.rent}}</span>
+      <span class="text-red-500 text-[20px]">{{ data.rent }}</span>
     </template>
     <!--    thumb-->
     <template #thumb>

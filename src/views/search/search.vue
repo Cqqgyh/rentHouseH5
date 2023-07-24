@@ -49,7 +49,7 @@ function confirmCallback(params: RoomListQueryInterface) {
 async function getRoomListHandler(pageInfo: ReqPage) {
   //   调用接口
   const { data } = await getRoomList({ ...searchParams.value, ...pageInfo });
-  console.log('pageInfo.current',pageInfo.current);
+  console.log("pageInfo.current", pageInfo.current);
   if (pageInfo.current === 1) {
     roomList.value = data.records;
   } else {
