@@ -19,6 +19,7 @@
               name="name"
               label="姓名"
               autocomplete="off"
+              required
               placeholder="请输入姓名"
               :rules="[{ required: true, message: '请填写姓名' }]"
             />
@@ -27,6 +28,8 @@
               v-model.trim="formData.phone"
               name="phone"
               label="手机号"
+              required
+              type="tel"
               autocomplete="off"
               placeholder="请输入手机号"
               :rules="[
@@ -44,6 +47,7 @@
               readonly
               name="date"
               label="预约日期"
+              required
               placeholder="点击选择日期"
               @click="showDate = true"
               :rules="[{ required: true, message: '请选择预约日期' }]"
@@ -62,6 +66,7 @@
               readonly
               name="time"
               label="预约时间"
+              required
               placeholder="点击选择时间"
               @click="showTime = true"
               :rules="[{ required: true, message: '请选择预约时间' }]"
