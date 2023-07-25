@@ -1,5 +1,6 @@
 import http from "@/utils/http";
 import type {
+  AgreementItemInterface,
   ApartmentInterface,
   AppointmentInfoInterface,
   AppointmentItemInterface,
@@ -104,4 +105,11 @@ export function getAppointmentDetailById(id: number | string) {
  */
 export function getMyAppointmentList() {
   return http.get<AppointmentItemInterface[]>(`/app/appointment/listItem`);
+}
+
+/**
+ * @description 获取个人租约基本信息列表
+ */
+export function getMyAgreementList() {
+  return http.get<AgreementItemInterface[]>(`/app/agreement/listItem`);
 }

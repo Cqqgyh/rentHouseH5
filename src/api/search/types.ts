@@ -191,3 +191,17 @@ export interface AppointmentItemInterface {
   appointmentTime: string;
   appointmentStatus: AppointmentStatus;
 }
+// 租约列表
+export interface AgreementItemInterface {
+  id: number | string;
+  roomGraphVoList: {
+    url: string;
+    name: number;
+  }[];
+  apartmentName: string;
+  roomNumber: number | string;
+  leaseStatus: number | string;
+  leaseStartDate: string;
+  leaseEndDate: string;
+  rent: number | string;
+}
