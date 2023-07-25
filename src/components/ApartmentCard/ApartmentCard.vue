@@ -48,7 +48,7 @@ const props = defineProps({
     readOnly: true
   }
 });
-// 跳转到房间的详情页面
+// 跳转到公寓的详情页面
 const goApartmentDetail = () => {
   router.push({ path: "/apartmentDetail", query: { id: props.data.id } });
 };
