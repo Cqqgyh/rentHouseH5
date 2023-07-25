@@ -111,11 +111,12 @@ import type {
   ApartmentInterface,
   AppointmentQueryInterface
 } from "@/api/search/types";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import ApartmentCard from "@/components/ApartmentCard/ApartmentCard.vue";
 import { AppointmentStatus } from "@/enums/constEnums";
 import { showToast } from "vant";
 const route = useRoute();
+const router = useRouter();
 // 公寓的详情信息
 const apartmentDetailInfo = ref<ApartmentInterface>({} as ApartmentInterface);
 // 获取公寓的详情信息
@@ -181,6 +182,9 @@ async function onSubmit(values: any) {
   console.log("submit", values);
   await saveOrUpdateAppointment(formData.value);
   showToast("操作成功");
+  route.query.apartmentId
+    ? await router.replace("/myAppointment")
+    : await router.back();
 }
 
 //#endregion
