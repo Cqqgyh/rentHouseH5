@@ -24,6 +24,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "预约看房"
     }
+  },
+  {
+    name: "MyAppointment",
+    path: "/myAppointment",
+    component: () => import("@/views/myAppointment/myAppointment.vue"),
+    meta: {
+      title: "我的预约"
+    }
   }
 ];
 

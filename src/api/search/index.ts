@@ -2,6 +2,7 @@ import http from "@/utils/http";
 import type {
   ApartmentInterface,
   AppointmentInfoInterface,
+  AppointmentItemInterface,
   AppointmentQueryInterface,
   PaymentInfoInterface,
   RegionInterface,
@@ -96,4 +97,11 @@ export function getAppointmentDetailById(id: number | string) {
   return http.get<AppointmentInfoInterface>(
     `/app/appointment/getDetailById?id=${id}`
   );
+}
+
+/**
+ * @description 查询我的预约列表
+ */
+export function getMyAppointmentList() {
+  return http.get<AppointmentItemInterface[]>(`/app/appointment/listItem`);
 }

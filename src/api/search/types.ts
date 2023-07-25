@@ -180,3 +180,14 @@ export interface AppointmentQueryInterface {
 export interface AppointmentInfoInterface extends AppointmentQueryInterface {
   appApartmentItemVo: ApartmentInterface;
 }
+// 预约列表
+export interface AppointmentItemInterface {
+  id: number | string;
+  apartmentName: string;
+  graphVoList: {
+    url: string;
+    name: number;
+  }[];
+  appointmentTime: string;
+  appointmentStatus: AppointmentStatus;
+}
