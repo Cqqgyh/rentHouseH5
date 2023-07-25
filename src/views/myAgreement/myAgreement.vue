@@ -7,7 +7,9 @@
     >
       <!--      title-->
       <template #title>
-        <h2 class="text-[15px] font-bold">{{ item.apartmentName }}</h2>
+        <h2 class="text-[15px] font-bold">
+          {{ `${item.apartmentName} ${item.roomNumber}房间` }}
+        </h2>
       </template>
       <!--    thumb-->
       <template #thumb>
