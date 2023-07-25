@@ -11,6 +11,20 @@
           {{ `${item.apartmentName} ${item.roomNumber}房间` }}
         </h2>
       </template>
+      <!--      title-->
+      <template #desc>
+        <div>
+          <span class="text-[12px] --van-gray-6">{{
+            `${item.leaseStartDate} 至 ${item.leaseEndDate}`
+          }}</span>
+        </div>
+      </template>
+      <!--      tag-->
+      <template #tag>
+        <van-tag type="primary" size="medium" class="translate-y-[-3px]">{{
+          getLabelByValue(AgreementSourceMap, item.sourceType)
+        }}</van-tag>
+      </template>
       <!--    thumb-->
       <template #thumb>
         <van-image
@@ -57,11 +71,6 @@
           <span class="text-red-500 text-[14px]">￥</span>
           <span class="text-red-500 text-[16px]">{{ item.rent }}/月</span>
         </div>
-        <div>
-          <span class="text-[12px] --van-gray-6">{{
-            `${item.leaseStartDate} 至 ${item.leaseEndDate}`
-          }}</span>
-        </div>
       </template>
     </van-card>
   </van-skeleton>
@@ -72,6 +81,7 @@ import { useRouter } from "vue-router";
 import type { AgreementItemInterface } from "@/api/search/types";
 import { getMyAgreementList } from "@/api/search";
 import {
+  AgreementSourceMap,
   AgreementStatus,
   AgreementStatusMap,
   getLabelByValue
