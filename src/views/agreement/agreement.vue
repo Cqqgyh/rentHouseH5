@@ -15,7 +15,9 @@
           <template #thumb>
             <van-image
               class="w-full h-full object-cover"
-              :src="agreementDetailInfo.apartmentGraphVoList?.[0]?.url || ''"
+              :src="
+                agreementDetailInfo.apartmentGraphVoList?.[0]?.url || '失败'
+              "
             >
               <template v-slot:error>加载失败</template>
               <template v-slot:loading>
@@ -41,7 +43,7 @@
           <template #thumb>
             <van-image
               class="w-full h-full object-cover"
-              :src="agreementDetailInfo.roomGraphVoList?.[0]?.url || ''"
+              :src="agreementDetailInfo.roomGraphVoList?.[0]?.url || '失败'"
             >
               <template v-slot:error>加载失败</template>
               <template v-slot:loading>
