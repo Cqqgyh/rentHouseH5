@@ -82,7 +82,7 @@
       <template #footer>
         <div class="absolute bottom-[7px] right-[15px]" @click.stop>
           <van-button
-            v-if="item.leaseStatus === AgreementStatus.SIGNED"
+            v-if="item.isRenewable"
             size="mini"
             plain
             type="primary"
