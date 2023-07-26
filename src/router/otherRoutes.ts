@@ -40,6 +40,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "我的租约"
     }
+  },
+  {
+    name: "Agreement",
+    path: "/agreement",
+    component: () => import("@/views/agreement/agreement.vue"),
+    meta: {
+      title: "租约详情"
+    }
   }
 ];
 

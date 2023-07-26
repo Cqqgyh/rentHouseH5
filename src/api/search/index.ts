@@ -1,6 +1,8 @@
 import http from "@/utils/http";
 import type {
+  AgreementDetailInterface,
   AgreementItemInterface,
+  AgreementQueryInterface,
   ApartmentInterface,
   AppointmentInfoInterface,
   AppointmentItemInterface,
@@ -9,7 +11,8 @@ import type {
   RegionInterface,
   RoomDetailInterface,
   RoomInterface,
-  RoomListQueryInterface
+  RoomListQueryInterface,
+  TermInfoInterface
 } from "@/api/search/types";
 import type { PageRes, ReqPage } from "@/api/types";
 /**
@@ -112,4 +115,39 @@ export function getMyAppointmentList() {
  */
 export function getMyAgreementList() {
   return http.get<AgreementItemInterface[]>(`/app/agreement/listItem`);
+}
+
+/**
+ * @description 根据id获取租约详细信息
+ */
+export function getAgreementDetailById(id: number | string) {
+  return http.get<AgreementDetailInterface>(
+    `/app/agreement/getDetailById?id=${id}`
+  );
+}
+
+/**
+ * @description 保存新租约
+ */
+export function saveOrUpdateAgreement(
+  params: Partial<AgreementQueryInterface>
+) {
+  return http.post(`/app/agreement/saveOrUpdate`, params);
+}
+
+/**
+ * @description 根据房间id获取可选获取租期列表
+ * @param roomId
+ */
+export function getTermListByRoomId(roomId: number | string) {
+  return http.get<TermInfoInterface[]>(`/app/term/listByRoomId?id=${roomId}`);
+}
+/**
+ * @description 根据房间id获取可选支付方式列表
+ * @param roomId
+ */
+export function getPaymentListByRoomId(roomId: number | string) {
+  return http.get<PaymentInfoInterface[]>(
+    `/app/payment/listByRoomId?id=${roomId}`
+  );
 }

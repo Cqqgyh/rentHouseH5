@@ -1,6 +1,7 @@
 import type { ReqPage } from "@/api/types";
 import type { SearchOrderType } from "@/enums/constEnums";
 import type { AppointmentStatus } from "@/enums/constEnums";
+import type { AgreementSource, AgreementStatus } from "@/enums/constEnums";
 
 export interface RoomListQueryInterface extends ReqPage {
   // 省份id
@@ -204,4 +205,53 @@ export interface AgreementItemInterface {
   leaseStartDate: string;
   leaseEndDate: string;
   rent: number | string;
+  sourceType: AgreementSource;
+}
+// 租约请求接口
+export interface AgreementQueryInterface {
+  id?: number | string;
+  // 	承租人姓名
+  name: string;
+  // phone	承租人手机号码
+  phone: string;
+  // identificationNumber	承租人身份证号码
+  identificationNumber: string;
+  // apartmentId	签约公寓id
+  apartmentId: number | string;
+  // roomId	签约房间id
+  roomId: number | string;
+  // leaseStartDate	租约开始日期
+  leaseStartDate: string;
+  // leaseEndDate	租约结束日期
+  leaseEndDate: string;
+  // leaseTermId	租期id
+  leaseTermId: number | string;
+  // rent	租金（元/月）
+  rent: number | string;
+  // deposit	押金（元）
+  deposit: number | string;
+  // paymentTypeId	支付类型id
+  paymentTypeId: number | string;
+  // status	租约状态,可用值:1,2,3,4,5,6
+  status: AgreementStatus;
+  // sourceType	租约来源,可用值:1,2
+  sourceType: AgreementSource;
+  // additionalInfo	备注信息
+  additionalInfo: string;
+}
+// 租约详情
+export interface AgreementDetailInterface extends AgreementQueryInterface {
+  apartmentName: string;
+  roomNumber: string;
+  paymentTypeName: string;
+  leaseTermMonthCount: number;
+  leaseTermUnit: string;
+  apartmentGraphVoList: {
+    url: string;
+    name: number;
+  }[];
+  roomGraphVoList: {
+    url: string;
+    name: number;
+  }[];
 }
