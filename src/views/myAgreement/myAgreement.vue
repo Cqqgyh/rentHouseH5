@@ -47,6 +47,13 @@
           >{{ getLabelByValue(AgreementStatusMap, item.leaseStatus) }}</van-tag
         >
         <van-tag
+          v-else-if="item.leaseStatus === AgreementStatus.RENEW_TO_BE_CONFIRMED"
+          class="mt-[5px]"
+          type="primary"
+          size="medium"
+          >{{ getLabelByValue(AgreementStatusMap, item.leaseStatus) }}</van-tag
+        >
+        <van-tag
           v-else-if="item.leaseStatus === AgreementStatus.SIGNED"
           class="mt-[5px]"
           type="success"
@@ -72,6 +79,42 @@
           <span class="text-red-500 text-[16px]">{{ item.rent }}/月</span>
         </div>
       </template>
+      <template #footer>
+        <div class="absolute bottom-[7px] right-[15px]" @click.stop>
+          <van-button
+            v-if="item.leaseStatus === AgreementStatus.SIGNED"
+            size="mini"
+            plain
+            type="primary"
+            @click="goAgreementDetail(item, { isEdit: true, isRenew: true })"
+            >续约</van-button
+          >
+          <van-button
+            v-if="item.leaseStatus === AgreementStatus.RENEW_TO_BE_CONFIRMED"
+            size="mini"
+            type="primary"
+            plain
+            @click="goAgreementDetail(item, { isEdit: true })"
+            >修改</van-button
+          >
+          <van-button
+            v-if="item.leaseStatus === AgreementStatus.WAITING"
+            size="mini"
+            type="primary"
+            plain
+            @click="goAgreementDetail(item, { isConfirm: true })"
+            >确认</van-button
+          >
+          <van-button
+            v-if="item.leaseStatus === AgreementStatus.SIGNED"
+            size="mini"
+            plain
+            type="danger"
+            @click="rentRefundHandle(item)"
+            >提前退租</van-button
+          >
+        </div>
+      </template>
     </van-card>
   </van-skeleton>
 </template>
@@ -79,7 +122,8 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import type { AgreementItemInterface } from "@/api/search/types";
-import { getMyAgreementList } from "@/api/search";
+import { getMyAgreementList, saveOrUpdateAgreement } from "@/api/search";
+import { showConfirmDialog, showToast } from "vant";
 import {
   AgreementSourceMap,
   AgreementStatus,
@@ -96,11 +140,37 @@ const getAgreementListHandle = async () => {
   agreementList.value = data;
 };
 // 跳转到租约详情
-const goAgreementDetail = (item: AgreementItemInterface) => {
+const goAgreementDetail = (
+  item: AgreementItemInterface,
+  query: object = {}
+) => {
   router.push({
     path: "/agreement",
-    query: { id: item.id }
+    query: { id: item.id, ...query }
   });
+};
+// 提前退租
+const rentRefundHandle = (item: AgreementItemInterface) => {
+  showConfirmDialog({
+    title: "提前退租",
+    message: "确定要提前退租吗？",
+    cancelButtonText: "取消",
+    confirmButtonText: "确定"
+  })
+    .then(async () => {
+      await saveOrUpdateAgreement({
+        id: item.id,
+        status: AgreementStatus.TO_BE_CONFIRMED
+      });
+      //   操作成功
+      showToast({
+        type: "success",
+        message: "操作成功"
+      });
+      //   修改当前租约状态
+      item.leaseStatus = AgreementStatus.TO_BE_CONFIRMED;
+    })
+    .catch(() => {});
 };
 onMounted(async () => {
   await getAgreementListHandle();
