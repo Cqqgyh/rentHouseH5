@@ -11,7 +11,7 @@
           {{ `${item.apartmentName} ${item.roomNumber}房间` }}
         </h2>
       </template>
-      <!--      title-->
+      <!--      desc-->
       <template #desc>
         <div>
           <span class="text-[12px] --van-gray-6">{{
