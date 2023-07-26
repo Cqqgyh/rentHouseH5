@@ -7,6 +7,7 @@ import type {
   AppointmentInfoInterface,
   AppointmentItemInterface,
   AppointmentQueryInterface,
+  HistoryItemInterface,
   PaymentInfoInterface,
   RegionInterface,
   RoomDetailInterface,
@@ -149,5 +150,16 @@ export function getTermListByRoomId(roomId: number | string) {
 export function getPaymentListByRoomId(roomId: number | string) {
   return http.get<PaymentInfoInterface[]>(
     `/app/payment/listByRoomId?id=${roomId}`
+  );
+}
+
+/**
+ * @description 获取浏览历史
+ * @param params
+ */
+export function getHistoryList(params: ReqPage) {
+  return http.get<PageRes<HistoryItemInterface>>(
+    `/app/history/pageItem`,
+    params
   );
 }

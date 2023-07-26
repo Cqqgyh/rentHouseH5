@@ -48,6 +48,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "租约详情"
     }
+  },
+  {
+    name: "BrowsingHistory",
+    path: "/browsingHistory",
+    component: () => import("@/views/browsingHistory/browsingHistory.vue"),
+    meta: {
+      title: "浏览历史"
+    }
   }
 ];
 

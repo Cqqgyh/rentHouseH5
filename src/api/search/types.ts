@@ -206,6 +206,7 @@ export interface AgreementItemInterface {
   leaseEndDate: string;
   rent: number | string;
   sourceType: AgreementSource;
+  isRenewable: boolean;
 }
 // 租约请求接口
 export interface AgreementQueryInterface {
@@ -254,4 +255,21 @@ export interface AgreementDetailInterface extends AgreementQueryInterface {
     url: string;
     name: number;
   }[];
+}
+// 浏览历史
+export interface HistoryItemInterface {
+  id: number | string;
+  userId: number | string;
+  roomId: number | string;
+  browseTime: string;
+  roomNumber: string;
+  rent: number | string;
+  roomGraphVoList: {
+    url: string;
+    name: number;
+  }[];
+  apartmentName: string;
+  provinceName: string;
+  cityName: string;
+  districtName: string;
 }
