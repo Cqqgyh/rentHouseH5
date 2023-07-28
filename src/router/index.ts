@@ -22,6 +22,10 @@ export interface toRouteType extends RouteLocationNormalized {
 
 router.beforeEach((to: toRouteType, from, next) => {
   NProgress.start();
+  // 解决路由缓存导致的 keep-alive 组件不刷新的问题
+  if (to.name === "Login") {
+    useCachedViewStoreHook().delAllCachedViews();
+  }
   // 路由缓存
   useCachedViewStoreHook().addCachedView(to);
   // 页面 title
