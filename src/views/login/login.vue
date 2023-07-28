@@ -55,7 +55,7 @@
                     format="ss"
                   >
                     <template #default="{ seconds }">
-                      <span class="--van-gray-1">{{ seconds }}</span>
+                      <span class="--van-gray-1">{{ `(${seconds}s)` }}</span>
                     </template>
                   </van-count-down>
                 </div>
@@ -80,12 +80,13 @@
 </template>
 <script setup lang="ts">
 import defaultAvatarUrl from "@/assets/logo.png";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { getSmsCode } from "@/api/user";
 import type { CountDownInstance, FormInstance } from "vant";
 import { useUserStore } from "@/store/modules/user";
 import LoadingButton from "@/components/LoadingButton/LoadingButton.vue";
+const route = useRoute();
 const router = useRouter();
 const userStore = useUserStore();
 // 登录信息
@@ -133,8 +134,16 @@ const onSubmitHandle = async () => {
   // 登录
   await userStore.LoginAction(loginInfo.value);
   // 跳转首页
-  await router.replace("/");
+  await router.replace(
+    route.query?.redirect
+      ? decodeURIComponent(route.query?.redirect as string)
+      : "/"
+  );
 };
+onMounted(() => {
+  console.log("route", route);
+  console.log("router-onMounted", router);
+});
 </script>
 
 <style scoped lang="less"></style>

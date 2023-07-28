@@ -9,8 +9,9 @@ import { showToast, showFailToast } from "vant";
 import { ResultEnum } from "@/enums/requestEnum";
 import NProgress from "../progress";
 import "vant/es/toast/style";
-import { getToken } from "@/utils/token";
+import { getToken, removeToken } from "@/utils/token";
 import type { ResultData } from "@/utils/http/type";
+import { useToLoginPage } from "@/hooks/useToLoginPage";
 
 export const service: AxiosInstance = axios.create({
   // 判断环境设置不同的baseURL
@@ -49,10 +50,11 @@ service.interceptors.response.use(
     NProgress.done();
     const { data } = response;
     // * 登陆失效（code == 203）
-    if (data.code === ResultEnum.EXPIRE) {
-      // RESEETSTORE()
-      showToast(data.message || ResultEnum.ERRMESSAGE);
-      // router.replace(LOGIN_URL)
+    if (ResultEnum.EXPIRE.includes(data.code)) {
+      // 清除token
+      removeToken();
+      const useToLogin = useToLoginPage();
+      useToLogin.showToLoginPageDialog();
       return Promise.reject(data);
     }
 

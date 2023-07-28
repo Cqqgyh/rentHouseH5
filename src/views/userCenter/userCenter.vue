@@ -39,9 +39,10 @@
 import { useUserStore } from "@/store/modules/user";
 import { showImagePreview } from "vant";
 import defaultAvatarUrl from "@/assets/logo.png";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
+console.log("router.currentRoute.value.path", router);
 const navList = ref([
   {
     icon: "历史",
@@ -67,6 +68,9 @@ const logoutHandle = () => {
   router.replace("/");
 };
 console.log(userStore);
+onMounted(() => {
+  userStore.GetInfoAction();
+});
 </script>
 
 <style scoped lang="less">
