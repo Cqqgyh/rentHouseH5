@@ -56,6 +56,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "浏览历史"
     }
+  },
+  {
+    name: "Login",
+    path: "/login",
+    component: () => import("@/views/login/login.vue"),
+    meta: {
+      title: "登录"
+    }
   }
 ];
 

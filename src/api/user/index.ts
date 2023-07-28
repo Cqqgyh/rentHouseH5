@@ -18,7 +18,7 @@ export function login(params: loginQueryInterface) {
  * @param params
  */
 export function getSmsCode(params: SmsCodeQueryInterface) {
-  return http.get(`/app/smsCode`, params);
+  return http.get(`/app/login/getCode`, params);
 }
 
 /**

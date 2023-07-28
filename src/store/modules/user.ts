@@ -5,12 +5,12 @@ import type {
   UserStateInterface
 } from "@/api/user/types";
 import { getUserInfo, login } from "@/api/user";
-import { getToken, removeToken, setToken } from "@/utils/token";
+import { removeToken, setToken } from "@/utils/token";
 
 export const useUserStore = defineStore({
   id: "app-user",
   state: (): UserStateInterface => ({
-    token: getToken(),
+    token: null,
     userInfo: null
   }),
   actions: {
@@ -21,7 +21,6 @@ export const useUserStore = defineStore({
     // login
     async LoginAction(params: loginQueryInterface) {
       const { data } = await login(params);
-      this.setToken(data);
       setToken(data);
       await this.GetInfoAction();
     },
@@ -43,5 +42,7 @@ export const useUserStore = defineStore({
       this.token = null;
       this.userInfo = null;
     }
-  }
+  },
+  // 设置为true，缓存state
+  persist: true
 });

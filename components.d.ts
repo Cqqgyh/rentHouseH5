@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     ApartmentCard: typeof import('./src/components/ApartmentCard/ApartmentCard.vue')['default']
     LeDropdown: typeof import("./src/components/DropdownBar/components/le-dropdown/le-dropdown.vue")["default"]
     LePicker: typeof import("./src/components/DropdownBar/components/le-dropdown/components/le-picker.vue")["default"]
+    LoadingButton: typeof import('./src/components/LoadingButton/LoadingButton.vue')['default']
     NavBar: typeof import('./src/components/NavBar/index.vue')['default']
     PullDownRefreshContainer: typeof import('./src/components/PullDownRefreshContainer/PullDownRefreshContainer.vue')['default']
     RoomCard: typeof import('./src/components/RoomCard/RoomCard.vue')['default']
@@ -27,6 +28,7 @@ declare module '@vue/runtime-core' {
     VanCellGroup: typeof import('vant/es')['CellGroup']
     VanCol: typeof import('vant/es')['Col']
     VanConfigProvider: typeof import('vant/es')['ConfigProvider']
+    VanCountDown: typeof import('vant/es')['CountDown']
     VanDatePicker: typeof import('vant/es')['DatePicker']
     VanDropdownItem: typeof import('vant/es')['DropdownItem']
     VanDropdownMenu: typeof import('vant/es')['DropdownMenu']
@@ -52,5 +54,6 @@ declare module '@vue/runtime-core' {
     VanTag: typeof import('vant/es')['Tag']
     VanTimePicker: typeof import('vant/es')['TimePicker']
     VanTreeSelect: typeof import("vant/es")["TreeSelect"]
+    VantRow: typeof import('vant/es')['tRow']
   }
 }
