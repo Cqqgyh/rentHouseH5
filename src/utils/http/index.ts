@@ -49,7 +49,7 @@ service.interceptors.response.use(
   (response: AxiosResponse) => {
     NProgress.done();
     const { data } = response;
-    // * 登陆失效（code == 203）
+    // * 登陆失效
     if (ResultEnum.EXPIRE.includes(data.code)) {
       // 清除token
       removeToken();
