@@ -46,6 +46,7 @@
         </div>
       </template>
     </van-card>
+    <van-empty v-if="appointmentList?.length <= 0" description="搜索不到" />
   </van-skeleton>
 </template>
 <script setup lang="ts">
