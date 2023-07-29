@@ -6,7 +6,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/roomDetail",
     component: () => import("@/views/roomDetail/roomDetail.vue"),
     meta: {
-      title: "房间详情"
+      title: "房间详情",
+      noCache: true
     }
   },
   {
@@ -14,7 +15,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/apartmentDetail",
     component: () => import("@/views/apartmentDetail/apartmentDetail.vue"),
     meta: {
-      title: "公寓详情"
+      title: "公寓详情",
+      noCache: true
     }
   },
   {
@@ -22,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/appointment",
     component: () => import("@/views/appointment/appointment.vue"),
     meta: {
-      title: "预约看房"
+      title: "预约看房",
+      noCache: true
     }
   },
   {
@@ -30,7 +33,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/myAppointment",
     component: () => import("@/views/myAppointment/myAppointment.vue"),
     meta: {
-      title: "我的预约"
+      title: "我的预约",
+      noCache: true
     }
   },
   {
@@ -38,7 +42,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/myAgreement",
     component: () => import("@/views/myAgreement/myAgreement.vue"),
     meta: {
-      title: "我的租约"
+      title: "我的租约",
+      noCache: true
     }
   },
   {
@@ -46,7 +51,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/agreement",
     component: () => import("@/views/agreement/agreement.vue"),
     meta: {
-      title: "租约详情"
+      title: "租约详情",
+      noCache: true
     }
   },
   {
@@ -54,7 +60,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/browsingHistory",
     component: () => import("@/views/browsingHistory/browsingHistory.vue"),
     meta: {
-      title: "浏览历史"
+      title: "浏览历史",
+      noCache: true
     }
   },
   {
@@ -62,7 +69,8 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     component: () => import("@/views/login/login.vue"),
     meta: {
-      title: "登录"
+      title: "登录",
+      noCache: true
     }
   }
 ];
