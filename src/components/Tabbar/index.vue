@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+import { ref, computed } from "vue";
 import tabBarRoutes from "@/router/tabBarRoutes";
 import { useRoute } from "vue-router";
 const route = useRoute();
