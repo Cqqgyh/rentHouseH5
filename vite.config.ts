@@ -33,7 +33,17 @@ export default defineConfig(({ mode }) => {
         // 指定图标文件夹
         iconDirs: [path.resolve(root, "src/icons/svg")],
         // 指定 symbolId 格式
-        symbolId: "icon-[dir]-[name]"
+        symbolId: "icon-[dir]-[name]",
+        //svgo额外配置，具体配置参考https://github.com/svg/svgo
+        svgoOptions: {
+          plugins: [
+            // 去除所有svg的"class", "data-name", "fill", "stroke"属性
+            {
+              name: "removeAttrs",
+              params: { attrs: ["class", "data-name", "fill", "stroke"] }
+            }
+          ]
+        }
       }),
       // 允许 setup 语法糖上添加组件名属性
       vueSetupExtend(),
