@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/search",
     component: () => import("@/views/search/search.vue"),
     meta: {
-      title: "主页",
+      title: "找房",
       icon: "search"
     }
   },
@@ -38,7 +38,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/myRoom/myRoom.vue"),
     meta: {
       title: "我的房间",
-      icon: "home-o"
+      icon: "home-o",
+      isShowNavBar: true
     }
   },
   {
@@ -47,7 +48,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/message/message.vue"),
     meta: {
       title: "消息",
-      icon: "comment-o"
+      icon: "comment-o",
+      isShowNavBar: true
     }
   },
   {
