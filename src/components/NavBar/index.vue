@@ -1,6 +1,6 @@
 <template>
   <van-nav-bar
-    v-show="isShowNavBar"
+    v-if="isShowNavBar"
     fixed
     placeholder
     @click-right="onClickRight"
