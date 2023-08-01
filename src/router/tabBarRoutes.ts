@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
+
 /**
  * @description 📚 路由参数配置简介
  * @param path ==> 菜单路径
@@ -27,7 +28,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/group/group.vue"),
     meta: {
       title: "圈子",
-      icon: "star-o"
+      icon: "star-o",
+      isShowNavBar: true
     }
   },
   {
