@@ -48,8 +48,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/message/message.vue"),
     meta: {
       title: "消息",
-      icon: "comment-o",
-      isShowNavBar: true
+      icon: "comment-o"
+      // isShowNavBar: true
     }
   },
   {
