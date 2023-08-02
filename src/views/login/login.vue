@@ -91,8 +91,8 @@ const router = useRouter();
 const userStore = useUserStore();
 // 登录信息
 const loginInfo = ref({
-  phone: "17796639675",
-  code: "123456"
+  phone: "",
+  code: ""
 });
 // 表单实例
 const formRef = ref<FormInstance>();
