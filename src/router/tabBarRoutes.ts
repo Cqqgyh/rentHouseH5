@@ -28,8 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/group/group.vue"),
     meta: {
       title: "圈子",
-      icon: "star-o",
-      isShowNavBar: true
+      icon: "star-o"
     }
   },
   {
@@ -38,8 +37,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/myRoom/myRoom.vue"),
     meta: {
       title: "我的房间",
-      icon: "home-o",
-      isShowNavBar: true
+      icon: "home-o"
     }
   },
   {
@@ -49,7 +47,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "消息",
       icon: "comment-o"
-      // isShowNavBar: true
     }
   },
   {
