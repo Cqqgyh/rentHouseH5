@@ -1,5 +1,4 @@
 import type { App } from "vue";
-import onClickRemoveClass from "./onClickRemoveClass";
 // 引入同文件夹下所有ts文件，index文件除外
 // 引入 views 文件夹下所有 vue 文件
 const modules = import.meta.glob("./**/*.ts");
@@ -24,19 +23,3 @@ const directives = {
 };
 
 export default directives;
-// const directivesList: any = {
-//   // Custom directives
-//   onClickRemoveClass
-// };
-// const directives = {
-//   install: function (app: App<Element>) {
-//     Object.keys(directivesList).forEach(key => {
-//       console.log("key", key);
-//       console.log("directivesList[key]", directivesList[key]);
-//       // 注册所有自定义指令
-//       app.directive(key, directivesList[key]);
-//     });
-//   }
-// };
-//
-// export default directives;
