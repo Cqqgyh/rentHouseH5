@@ -1,5 +1,6 @@
 <template>
   <van-card
+    class="rounded-xl shadow"
     :title="`${data.name}`"
     :desc="`${data.provinceName} ${data.cityName} ${data.districtName}`"
     @click="goApartmentDetail"

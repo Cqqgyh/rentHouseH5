@@ -156,7 +156,7 @@
     <!--    所属公寓-->
     <div>
       <div class="base-info-title main-container py-[4px]">所属公寓</div>
-      <div class="my-[5px] pb-[50px]">
+      <div class="my-[5px] pb-[50px] px-[10px]">
         <ApartmentCard
           :data="roomDetailInfo.appApartmentItemVo"
         ></ApartmentCard>

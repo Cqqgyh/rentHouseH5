@@ -1,51 +1,55 @@
 <template>
   <van-skeleton :row="20" :loading="!appointmentList">
-    <van-card
-      v-for="item in appointmentList"
-      :key="item.id"
-      @click="goAppointmentDetail(item)"
-    >
-      <!--      title-->
-      <template #title>
-        <h2 class="text-[15px] font-bold">{{ item.apartmentName }}</h2>
-      </template>
-      <!--    thumb-->
-      <template #thumb>
-        <van-image
-          class="w-full h-full object-cover"
-          :src="item.graphVoList?.[0]?.url || '失败'"
-        >
-          <template v-slot:error>加载失败</template>
-          <template v-slot:loading>
-            <van-loading type="spinner" size="20" />
-          </template>
-        </van-image>
-      </template>
-      <!--      tags-->
-      <template #tags>
-        <van-tag
-          v-if="item.appointmentStatus === AppointmentStatus.WAITING"
-          class="mt-[10px]"
-          type="success"
-          size="medium"
-          >{{
+    <div class="p-[10px]">
+      <van-card
+        class="rounded-xl shadow"
+        v-for="item in appointmentList"
+        :key="item.id"
+        @click="goAppointmentDetail(item)"
+      >
+        <!--      title-->
+        <template #title>
+          <h2 class="text-[15px] font-bold">{{ item.apartmentName }}</h2>
+        </template>
+        <!--    thumb-->
+        <template #thumb>
+          <van-image
+            class="w-full h-full object-cover"
+            :src="item.graphVoList?.[0]?.url || '失败'"
+          >
+            <template v-slot:error>加载失败</template>
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
+        </template>
+        <!--      tags-->
+        <template #tags>
+          <van-tag
+            v-if="item.appointmentStatus === AppointmentStatus.WAITING"
+            class="mt-[10px]"
+            type="success"
+            size="medium"
+            >{{
+              getLabelByValue(AppointmentStatusMap, item.appointmentStatus)
+            }}</van-tag
+          >
+          <van-tag v-else class="mt-[10px]" type="default" size="medium">{{
             getLabelByValue(AppointmentStatusMap, item.appointmentStatus)
-          }}</van-tag
-        >
-        <van-tag v-else class="mt-[10px]" type="default" size="medium">{{
-          getLabelByValue(AppointmentStatusMap, item.appointmentStatus)
-        }}</van-tag>
-      </template>
-      <!--      price-->
-      <template #price>
-        <div class="flex justify-between">
-          <div class="text-[12px] text-red-500">预约时间</div>
-          <div class="text-[12px] text-red-500">
-            {{ item.appointmentTime }}
+          }}</van-tag>
+        </template>
+        <!--      price-->
+        <template #price>
+          <div class="flex justify-between">
+            <div class="text-[12px] text-red-500">预约时间</div>
+            <div class="text-[12px] text-red-500">
+              {{ item.appointmentTime }}
+            </div>
           </div>
-        </div>
-      </template>
-    </van-card>
+        </template>
+      </van-card>
+    </div>
+
     <van-empty v-if="appointmentList?.length <= 0" description="搜索不到" />
   </van-skeleton>
 </template>

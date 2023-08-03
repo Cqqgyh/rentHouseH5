@@ -1,5 +1,5 @@
 <template>
-  <van-card @click="goRoomDetail">
+  <van-card @click="goRoomDetail" class="rounded-xl shadow">
     <!--      title-->
     <template #title>
       <slot name="title">
