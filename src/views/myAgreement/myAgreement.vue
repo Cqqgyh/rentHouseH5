@@ -192,9 +192,4 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped lang="less">
-.base-info-title {
-  background-color: var(--van-primary-background-color);
-  //color: white;
-}
-</style>
+<style scoped lang="less"></style>

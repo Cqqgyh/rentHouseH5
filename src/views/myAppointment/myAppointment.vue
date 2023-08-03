@@ -87,6 +87,7 @@ onMounted(async () => {
 <style scoped lang="less">
 .base-info-title {
   background-color: var(--van-primary-background-color);
+  font-weight: bold;
   //color: white;
 }
 </style>

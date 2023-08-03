@@ -3,7 +3,7 @@
     <!--    签约公寓-->
     <div>
       <div class="base-info-title main-container py-[4px]">签约公寓</div>
-      <div class="my-[5px]">
+      <div class="my-[5px] px-[10px]">
         <van-card @click="goApartmentDetail()">
           <!--      title-->
           <template #title>
@@ -31,7 +31,7 @@
     <!--    签约房间-->
     <div>
       <div class="base-info-title main-container py-[4px]">签约房间</div>
-      <div class="my-[5px]">
+      <div class="my-[5px] px-[10px]">
         <van-card @click="goRoomDetail()">
           <!--      title-->
           <template #title>
@@ -479,6 +479,7 @@ onMounted(async () => {
 <style scoped lang="less">
 .base-info-title {
   background-color: var(--van-primary-background-color);
+  font-weight: bold;
   //color: white;
 }
 </style>
