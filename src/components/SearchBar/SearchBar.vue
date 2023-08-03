@@ -66,7 +66,7 @@
     </van-dropdown-item>
     <van-dropdown-item title="价格">
       <div class="comment-padding">
-        <van-row gutter="10" justify="space-around" class="mt-[5px]">
+        <van-row gutter="10" justify="space-between" class="mt-[5px]">
           <van-col
             class="text-center border p-[4px] mt-[5px] transition-all"
             :class="{ 'other-checked': item.isCheck }"
@@ -104,7 +104,7 @@
     </van-dropdown-item>
     <van-dropdown-item title="付款方式">
       <div class="comment-padding">
-        <van-row gutter="10" justify="space-around" class="mt-[5px]">
+        <van-row justify="space-between" class="mt-[5px]">
           <van-col
             class="text-center border p-[4px] mt-[5px] transition-all"
             :class="{ 'other-checked': item.isCheck }"
