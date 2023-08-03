@@ -87,7 +87,7 @@
         <PullDownRefreshContainer
           :request="getRoomListHandler"
           ref="pullDownRefreshContainerRef"
-          class="min-h-[70vh]"
+          class="min-h-[70vh] px-[10px]"
         >
           <template v-if="roomList?.length">
             <RoomCard
