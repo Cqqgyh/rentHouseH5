@@ -1,107 +1,105 @@
 <template>
   <van-skeleton :row="20" :loading="!apartmentDetailInfo?.id">
-    <!--    预约公寓-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">预约公寓</div>
-      <div class="my-[5px] px-[10px]">
-        <ApartmentCard :data="apartmentDetailInfo"></ApartmentCard>
+    <div class="page-container min-h-[100vh] py-[15px]">
+      <!--    预约公寓-->
+      <div>
+        <div class="base-info-title main-container py-[4px]">预约公寓</div>
+        <div class="my-[5px] px-[15px]">
+          <ApartmentCard :data="apartmentDetailInfo"></ApartmentCard>
+        </div>
       </div>
-    </div>
-    <!--    预约信息-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">预约信息</div>
-      <div class="main-container my-[5px]">
-        <van-form @submit="onSubmit">
-          <van-cell-group inset>
-            <!--            姓名-->
-            <van-field
-              v-model.trim="formData.name"
-              name="name"
-              label="姓名"
-              autocomplete="off"
-              required
-              placeholder="请输入姓名"
-              :rules="[{ required: true, message: '请填写姓名' }]"
-            />
-            <!--            手机号-->
-            <van-field
-              v-model.trim="formData.phone"
-              name="phone"
-              label="手机号"
-              required
-              type="tel"
-              autocomplete="off"
-              placeholder="请输入手机号"
-              :rules="[
-                {
-                  required: true,
-                  pattern: /^1([3589]\d|4[5-9]|6[1-2,4-7]|7[0-8])\d{8}$/,
-                  message: '请正确填写手机号'
-                }
-              ]"
-            />
-            <!--            预约日期-->
-            <van-field
-              v-model="formData.date"
-              is-link
-              readonly
-              name="date"
-              label="预约日期"
-              required
-              placeholder="点击选择日期"
-              @click="showDate = true"
-              :rules="[{ required: true, message: '请选择预约日期' }]"
-            />
-            <van-popup v-model:show="showDate" position="bottom">
-              <van-date-picker
-                :min-date="new Date()"
-                @confirm="onConfirmAppointmentDateHandle"
-                @cancel="showDate = false"
+      <!--    预约信息-->
+      <div>
+        <div class="base-info-title main-container py-[4px]">预约信息</div>
+        <div class="my-[5px] relative">
+          <van-form @submit="onSubmit">
+            <van-cell-group inset>
+              <!--            姓名-->
+              <van-field
+                v-model.trim="formData.name"
+                name="name"
+                label="姓名"
+                autocomplete="off"
+                placeholder="请输入姓名"
+                :rules="[{ required: true, message: '请填写姓名' }]"
               />
-            </van-popup>
-            <!--            预约时间-->
-            <van-field
-              v-model="formData.time"
-              is-link
-              readonly
-              name="time"
-              label="预约时间"
-              required
-              placeholder="点击选择时间"
-              @click="showTime = true"
-              :rules="[{ required: true, message: '请选择预约时间' }]"
-            />
-            <van-popup v-model:show="showTime" position="bottom">
-              <van-time-picker
-                v-model="dateInfo.time"
-                title="选择时间"
-                @confirm="onConfirmAppointmentTimeHandle"
-                @cancel="showDate = false"
-                :columns-type="['hour', 'minute', 'second']"
-            /></van-popup>
-            <!--            备注信息-->
-            <van-field
-              v-model.trim="formData.additionalInfo"
-              name="additionalInfo"
-              label="备注信息"
-              rows="3"
-              autosize
-              type="textarea"
-              autocomplete="off"
-              placeholder="请输入备注信息"
-              show-word-limit
-              maxlength="50"
-            />
-          </van-cell-group>
-          <div class="mt-[50px]">
-            <van-button round block type="primary" native-type="submit">
-              {{ formData.id ? "重新预约" : "预约看房" }}
-            </van-button>
-          </div>
-        </van-form>
+              <!--            手机号-->
+              <van-field
+                v-model.trim="formData.phone"
+                name="phone"
+                label="手机号"
+                type="tel"
+                autocomplete="off"
+                placeholder="请输入手机号"
+                :rules="[
+                  {
+                    required: true,
+                    pattern: /^1([3589]\d|4[5-9]|6[1-2,4-7]|7[0-8])\d{8}$/,
+                    message: '请正确填写手机号'
+                  }
+                ]"
+              />
+              <!--            预约日期-->
+              <van-field
+                v-model="formData.date"
+                is-link
+                readonly
+                name="date"
+                label="预约日期"
+                placeholder="点击选择日期"
+                @click="showDate = true"
+                :rules="[{ required: true, message: '请选择预约日期' }]"
+              />
+              <van-popup v-model:show="showDate" position="bottom">
+                <van-date-picker
+                  :min-date="new Date()"
+                  @confirm="onConfirmAppointmentDateHandle"
+                  @cancel="showDate = false"
+                />
+              </van-popup>
+              <!--            预约时间-->
+              <van-field
+                v-model="formData.time"
+                is-link
+                readonly
+                name="time"
+                label="预约时间"
+                placeholder="点击选择时间"
+                @click="showTime = true"
+                :rules="[{ required: true, message: '请选择预约时间' }]"
+              />
+              <van-popup v-model:show="showTime" position="bottom">
+                <van-time-picker
+                  v-model="dateInfo.time"
+                  title="选择时间"
+                  @confirm="onConfirmAppointmentTimeHandle"
+                  @cancel="showDate = false"
+                  :columns-type="['hour', 'minute', 'second']"
+              /></van-popup>
+              <!--            备注信息-->
+              <van-field
+                v-model.trim="formData.additionalInfo"
+                name="additionalInfo"
+                label="备注信息"
+                rows="3"
+                autosize
+                type="textarea"
+                autocomplete="off"
+                placeholder="请输入备注信息"
+                show-word-limit
+                maxlength="50"
+              />
+            </van-cell-group>
+            <div class="mt-[50px] main-container">
+              <van-button round block type="primary" native-type="submit">
+                {{ formData.id ? "重新预约" : "预约看房" }}
+              </van-button>
+            </div>
+          </van-form>
+        </div>
       </div>
+      <div class="absolute bottom-0"></div>
     </div>
-    <div class="absolute bottom-0"></div>
   </van-skeleton>
 </template>
 <script setup lang="ts">
@@ -214,8 +212,11 @@ onMounted(async () => {
 
 <style scoped lang="less">
 .base-info-title {
-  background-color: var(--van-primary-background-color);
+  //background-color: var(--van-primary-background-color);
   font-weight: bold;
   //color: white;
+}
+::v-deep .van-card {
+  background: var(--van-background-2) !important;
 }
 </style>
