@@ -1,5 +1,6 @@
 <template>
   <van-skeleton :row="20" :loading="!apartmentDetailInfo?.id">
+    <div class="page-container">
     <!--  轮播图-->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
       <van-swipe-item
@@ -14,97 +15,98 @@
         </van-image>
       </van-swipe-item>
     </van-swipe>
-    <!--  公寓的信息-->
-    <div class="main-container">
-      <!--      标题-->
-      <div class="font-bold">
-        {{ `${apartmentDetailInfo.name}` }}
-      </div>
-      <!--      标签-->
-      <div class="my-[7px]">
-        <van-tag
-          class="last:mr-0 mr-[5px]"
-          plain
-          v-for="item in apartmentDetailInfo.labelInfoList"
-          :key="item.id"
-          type="primary"
-          >{{ item.name }}
-        </van-tag>
-      </div>
-      <!--      价格-->
-      <div>
-        <span class="text-red-500 text-[16px]">￥</span>
-        <span class="text-red-500 text-[18px]"
-          >{{ apartmentDetailInfo.minRent }}/月起</span
-        >
-      </div>
-    </div>
-    <!--    基本信息-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">社区介绍</div>
-      <div class="main-container my-[5px]">
-        <div>
-          {{ apartmentDetailInfo.introduction }}
+      <!--  公寓的信息-->
+      <div class="card">
+        <!--      标题-->
+        <div class="font-bold">
+          {{ `${apartmentDetailInfo.name}` }}
         </div>
-      </div>
-    </div>
-    <!--    配套说明-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">配套说明</div>
-      <div class="main-container my-[5px]">
-        <van-row>
-          <van-col
-            span="4"
-            class="my-[3px]"
-            v-for="item in apartmentDetailInfo.facilityInfoList"
+        <!--      标签-->
+        <div class="my-[7px]">
+          <van-tag
+            class="last:mr-0 mr-[5px]"
+            plain
+            v-for="item in apartmentDetailInfo.labelInfoList"
             :key="item.id"
+            type="primary"
+            >{{ item.name }}
+          </van-tag>
+        </div>
+        <!--      价格-->
+        <div>
+          <span class="text-red-500 text-[16px]">￥</span>
+          <span class="text-red-500 text-[18px]"
+            >{{ apartmentDetailInfo.minRent }}/月起</span
           >
-            <div class="flex flex-col justify-center items-center">
-              <SvgIcon :name="item.icon" size="25" />
-              <span class="text-center">
-                {{ item.name }}
-              </span>
-            </div>
-          </van-col>
-        </van-row>
-      </div>
-    </div>
-    <!--    位置详情-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">位置详情</div>
-      <div class="main-container my-[5px]">
-        <div class="text-xs mb-[5px]">
-          {{ apartmentDetailInfo.addressDetail }}
         </div>
       </div>
-      <!--        地图容器-->
-      <div id="container" class="w-[100vw] h-[30vh]"></div>
-    </div>
-    <!--    可选房间列表-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">可选房间列表</div>
-      <div class="my-[5px] pb-[50px]">
-        <PullDownRefreshContainer
-          :request="getRoomListHandler"
-          ref="pullDownRefreshContainerRef"
-          class="min-h-[70vh] px-[10px]"
-        >
-          <template v-if="roomList?.length">
-            <RoomCard
-              v-for="item in roomList"
-              :key="item.id"
-              :data="item"
-            ></RoomCard>
-          </template>
-        </PullDownRefreshContainer>
+      <!--    基本信息-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">社区介绍</div>
+        <div class="my-[5px]">
+          <div>
+            {{ apartmentDetailInfo.introduction }}
+          </div>
+        </div>
       </div>
+      <!--    配套说明-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">配套说明</div>
+        <div class="my-[5px]">
+          <van-row>
+            <van-col
+              span="4"
+              class="my-[3px]"
+              v-for="item in apartmentDetailInfo.facilityInfoList"
+              :key="item.id"
+            >
+              <div class="flex flex-col justify-center items-center">
+                <SvgIcon :name="item.icon" size="25" />
+                <span class="text-center">
+                  {{ item.name }}
+                </span>
+              </div>
+            </van-col>
+          </van-row>
+        </div>
+      </div>
+      <!--    位置详情-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">位置详情</div>
+        <div class="my-[5px]">
+          <div class="text-xs mb-[5px]">
+            {{ apartmentDetailInfo.addressDetail }}
+          </div>
+        </div>
+        <!--        地图容器-->
+        <div id="container" class="w-[85vw] h-[30vh]"></div>
+      </div>
+      <!--    可选房间列表-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">可选房间列表</div>
+        <div class="mt-[5px]">
+          <PullDownRefreshContainer
+            :request="getRoomListHandler"
+            ref="pullDownRefreshContainerRef"
+            class="min-h-[70vh] px-[10px]"
+          >
+            <template v-if="roomList?.length">
+              <RoomCard
+                v-for="item in roomList"
+                :key="item.id"
+                :data="item"
+              ></RoomCard>
+            </template>
+          </PullDownRefreshContainer>
+        </div>
+      </div>
+      <!--    预约看房-->
+      <van-sticky :offset-bottom="0" position="bottom">
+        <van-button type="primary" block @click="appointmentToViewHandle"
+          >预约看房</van-button
+        >
+      </van-sticky>
     </div>
-    <!--    预约看房-->
-    <van-sticky :offset-bottom="0" position="bottom">
-      <van-button type="primary" block @click="appointmentToViewHandle"
-        >预约看房</van-button
-      >
-    </van-sticky>
   </van-skeleton>
 </template>
 <script setup lang="ts">
@@ -195,7 +197,7 @@ onMounted(async () => {
 
 <style scoped lang="less">
 .base-info-title {
-  background-color: var(--van-primary-background-color);
+  //background-color: var(--van-primary-background-color);
   font-weight: bold;
   //color: white;
 }

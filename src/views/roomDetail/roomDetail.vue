@@ -1,173 +1,179 @@
 <template>
   <van-skeleton :row="20" :loading="!roomDetailInfo?.id">
-    <!--  轮播图-->
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item
-        v-for="item in roomDetailInfo.graphVoList"
-        :key="item.url"
-      >
-        <van-image fit="fill" :src="item.url" width="100vw" height="35vh">
-          <template v-slot:error>加载失败</template>
-          <template v-slot:loading>
-            <van-loading type="spinner" size="20" />
-          </template>
-        </van-image>
-      </van-swipe-item>
-    </van-swipe>
-    <!--  房间的信息-->
-    <div class="main-container">
-      <!--      标题-->
-      <div class="font-bold">
-        {{
-          `${roomDetailInfo.appApartmentItemVo.name} ${roomDetailInfo.roomNumber}房间`
-        }}
-      </div>
-      <!--      标签-->
-      <div class="my-[7px]">
-        <van-tag
-          class="last:mr-0 mr-[5px]"
-          plain
-          v-for="item in roomDetailInfo.labelInfoList"
-          :key="item.id"
-          type="primary"
-          >{{ item.name }}
-        </van-tag>
-      </div>
-      <!--      价格-->
-      <div>
-        <span class="text-red-500 text-[16px]">￥</span>
-        <span class="text-red-500 text-[18px]"
-          >{{ roomDetailInfo.rent }}/月</span
+    <div class="page-container">
+      <!--  轮播图-->
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item
+          v-for="item in roomDetailInfo.graphVoList"
+          :key="item.url"
         >
-      </div>
-    </div>
-    <!--    基本信息-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">基本信息</div>
-      <div class="main-container my-[5px]">
-        <van-row gutter="10">
-          <van-col
-            span="12"
-            class="my-[3px]"
-            v-for="item in roomDetailInfo.attrValueVoList"
-            :key="item.id"
-          >
-            <van-row>
-              <van-col span="6">
-                <van-tag type="primary">{{ item.attrKeyName }}</van-tag>
-              </van-col>
-              <van-col span="18">
-                {{ item.name }}
-              </van-col>
-            </van-row>
-          </van-col>
-          <!--          占位修饰-->
-          <van-col
-            class="my-[3px]"
-            v-if="roomDetailInfo.attrValueVoList?.length % 2 !== 0"
-            span="12"
-          >
-          </van-col>
-        </van-row>
-      </div>
-    </div>
-    <!--    配套信息-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">配套信息</div>
-      <div class="main-container my-[5px]">
-        <van-row>
-          <van-col
-            span="4"
-            class="my-[3px]"
-            v-for="item in roomDetailInfo.facilityInfoList"
-            :key="item.id"
-          >
-            <div class="flex flex-col justify-center items-center">
-              <SvgIcon :name="item.icon" size="25" />
-              <span class="text-center">
-                {{ item.name }}
-              </span>
-            </div>
-          </van-col>
-        </van-row>
-      </div>
-    </div>
-    <!--    位置详情-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">位置详情</div>
-      <div class="main-container my-[5px]">
-        <div class="text-xs mb-[5px]">
-          {{ roomDetailInfo.appApartmentItemVo.addressDetail }}
+          <van-image fit="fill" :src="item.url" width="100vw" height="35vh">
+            <template v-slot:error>加载失败</template>
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
+        </van-swipe-item>
+      </van-swipe>
+
+      <!--  房间的信息-->
+      <div class="card">
+        <div class="">
+          <!--      标题-->
+          <div class="font-bold">
+            {{
+              `${roomDetailInfo.appApartmentItemVo.name} ${roomDetailInfo.roomNumber}房间`
+            }}
+          </div>
+          <!--      标签-->
+          <div class="my-[7px]">
+            <van-tag
+              class="last:mr-0 mr-[5px]"
+              plain
+              v-for="item in roomDetailInfo.labelInfoList"
+              :key="item.id"
+              type="primary"
+              >{{ item.name }}
+            </van-tag>
+          </div>
+          <!--      价格-->
+          <div>
+            <span class="text-red-500 text-[16px]">￥</span>
+            <span class="text-red-500 text-[18px]"
+              >{{ roomDetailInfo.rent }}/月</span
+            >
+          </div>
         </div>
       </div>
-      <!--        地图容器-->
-      <div id="container" class="w-[100vw] h-[30vh]"></div>
-    </div>
-    <!--    费用明细-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">费用明细</div>
-      <div class="main-container my-[5px]">
-        <van-row gutter="10">
-          <van-col span="12">
-            <van-tag type="primary" size="medium">费用科目</van-tag>
-          </van-col>
-          <van-col span="12">
-            <van-tag type="primary" size="medium">收费标准</van-tag>
-          </van-col>
-          <template
-            v-for="item in roomDetailInfo.feeValueVoList"
-            :key="item.id"
-          >
-            <van-col span="12" class="my-[5px]">
-              <span>{{ item.feeKeyName }}</span>
+
+      <!--    基本信息-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">基本信息</div>
+        <div class="my-[5px]">
+          <van-row gutter="10">
+            <van-col
+              span="12"
+              class="my-[3px]"
+              v-for="item in roomDetailInfo.attrValueVoList"
+              :key="item.id"
+            >
+              <van-row>
+                <van-col span="6">
+                  <van-tag type="primary">{{ item.attrKeyName }}</van-tag>
+                </van-col>
+                <van-col span="18">
+                  {{ item.name }}
+                </van-col>
+              </van-row>
             </van-col>
-            <van-col span="12" class="my-[5px]">
-              <span>{{ `￥${item.name}${item.unit}` }}</span>
+            <!--          占位修饰-->
+            <van-col
+              class="my-[3px]"
+              v-if="roomDetailInfo.attrValueVoList?.length % 2 !== 0"
+              span="12"
+            >
             </van-col>
-          </template>
-        </van-row>
+          </van-row>
+        </div>
       </div>
-    </div>
-    <!--    付款说明-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">费用明细</div>
-      <div class="main-container my-[5px]">
-        <van-row gutter="10">
-          <van-col span="12">
-            <van-tag type="primary" size="medium">可选付款方式</van-tag>
-          </van-col>
-          <van-col span="12">
-            <van-tag type="primary" size="medium">说明</van-tag>
-          </van-col>
-          <template
-            v-for="item in roomDetailInfo.paymentTypeList"
-            :key="item.id"
-          >
-            <van-col span="12" class="my-[5px]">
-              <span>{{ item.name }}</span>
+      <!--    配套信息-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">配套信息</div>
+        <div class="my-[5px]">
+          <van-row>
+            <van-col
+              span="4"
+              class="my-[3px]"
+              v-for="item in roomDetailInfo.facilityInfoList"
+              :key="item.id"
+            >
+              <div class="flex flex-col justify-center items-center">
+                <SvgIcon :name="item.icon" size="25" />
+                <span class="text-center">
+                  {{ item.name }}
+                </span>
+              </div>
             </van-col>
-            <van-col span="12" class="my-[5px]">
-              <span>{{ item.additionalInfo }}</span>
+          </van-row>
+        </div>
+      </div>
+      <!--    位置详情-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">位置详情</div>
+        <div class="my-[5px]">
+          <div class="text-xs mb-[5px] w-[300px]">
+            {{ roomDetailInfo.appApartmentItemVo.addressDetail }}
+          </div>
+        </div>
+        <!--        地图容器-->
+        <div id="container" class="w-[85vw] h-[30vh]"></div>
+      </div>
+      <!--    费用明细-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">费用明细</div>
+        <div class="my-[5px]">
+          <van-row gutter="10">
+            <van-col span="12">
+              <van-tag type="primary" size="medium">费用科目</van-tag>
             </van-col>
-          </template>
-        </van-row>
+            <van-col span="12">
+              <van-tag type="primary" size="medium">收费标准</van-tag>
+            </van-col>
+            <template
+              v-for="item in roomDetailInfo.feeValueVoList"
+              :key="item.id"
+            >
+              <van-col span="12" class="my-[5px]">
+                <span>{{ item.feeKeyName }}</span>
+              </van-col>
+              <van-col span="12" class="my-[5px]">
+                <span>{{ `￥${item.name}${item.unit}` }}</span>
+              </van-col>
+            </template>
+          </van-row>
+        </div>
       </div>
-    </div>
-    <!--    所属公寓-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">所属公寓</div>
-      <div class="my-[5px] pb-[50px] px-[10px]">
-        <ApartmentCard
-          :data="roomDetailInfo.appApartmentItemVo"
-        ></ApartmentCard>
+      <!--    付款说明-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">费用明细</div>
+        <div class="my-[5px]">
+          <van-row gutter="10">
+            <van-col span="12">
+              <van-tag type="primary" size="medium">可选付款方式</van-tag>
+            </van-col>
+            <van-col span="12">
+              <van-tag type="primary" size="medium">说明</van-tag>
+            </van-col>
+            <template
+              v-for="item in roomDetailInfo.paymentTypeList"
+              :key="item.id"
+            >
+              <van-col span="12" class="my-[5px]">
+                <span>{{ item.name }}</span>
+              </van-col>
+              <van-col span="12" class="my-[5px]">
+                <span>{{ item.additionalInfo }}</span>
+              </van-col>
+            </template>
+          </van-row>
+        </div>
       </div>
+      <!--    所属公寓-->
+      <div class="card">
+        <div class="base-info-title py-[4px]">所属公寓</div>
+        <div class="my-[5px] pb-[50px] px-[10px]">
+          <ApartmentCard
+            :data="roomDetailInfo.appApartmentItemVo"
+          ></ApartmentCard>
+        </div>
+      </div>
+      <!--    预约看房-->
+      <van-sticky :offset-bottom="0" position="bottom">
+        <van-button type="primary" block @click="appointmentToViewHandle"
+          >预约看房</van-button
+        >
+      </van-sticky>
     </div>
-    <!--    预约看房-->
-    <van-sticky :offset-bottom="0" position="bottom">
-      <van-button type="primary" block @click="appointmentToViewHandle"
-        >预约看房</van-button
-      >
-    </van-sticky>
   </van-skeleton>
 </template>
 <script setup lang="ts">
@@ -231,7 +237,7 @@ onMounted(async () => {
 
 <style scoped lang="less">
 .base-info-title {
-  background-color: var(--van-primary-background-color);
+  //background-color: var(--van-primary-background-color);
   font-weight: bold;
   //color: white;
 }
