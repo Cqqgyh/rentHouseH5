@@ -202,7 +202,7 @@ async function getAppointmentDetailHandle() {
   // 单独处理日期
   dateInfo.value.date = data.appointmentTime.split(" ")[0].split("-");
   dateInfo.value.time = data.appointmentTime.split(" ")[1].split(":");
-  apartmentDetailInfo.value = data.appApartmentItemVo;
+  apartmentDetailInfo.value = data.apartmentItemVo;
 }
 onMounted(async () => {
   route.query.apartmentId && (await getApartmentDetailHandle());

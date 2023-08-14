@@ -123,7 +123,7 @@ export interface RoomDetailInterface {
   isRelease: string | number;
   leaseEndDate: string;
   checkInStatus: string;
-  appApartmentItemVo: ApartmentInterface;
+  apartmentItemVo: ApartmentInterface;
   // 	属性信息列表
   attrValueVoList?: AttrValueInfoInterface[];
   // 	公寓配套信息
@@ -179,7 +179,7 @@ export interface AppointmentQueryInterface {
   appointmentStatus?: AppointmentStatus;
 }
 export interface AppointmentInfoInterface extends AppointmentQueryInterface {
-  appApartmentItemVo: ApartmentInterface;
+  apartmentItemVo: ApartmentInterface;
 }
 // 预约列表
 export interface AppointmentItemInterface {

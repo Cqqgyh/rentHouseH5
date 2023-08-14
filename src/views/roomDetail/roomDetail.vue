@@ -22,7 +22,7 @@
           <!--      标题-->
           <div class="font-bold">
             {{
-              `${roomDetailInfo.appApartmentItemVo.name} ${roomDetailInfo.roomNumber}房间`
+              `${roomDetailInfo.apartmentItemVo.name} ${roomDetailInfo.roomNumber}房间`
             }}
           </div>
           <!--      标签-->
@@ -102,7 +102,7 @@
         <div class="base-info-title py-[4px]">位置详情</div>
         <div class="my-[5px]">
           <div class="text-xs mb-[5px] w-[300px]">
-            {{ roomDetailInfo.appApartmentItemVo.addressDetail }}
+            {{ roomDetailInfo.apartmentItemVo.addressDetail }}
           </div>
         </div>
         <!--        地图容器-->
@@ -163,7 +163,7 @@
         <div class="base-info-title py-[4px]">所属公寓</div>
         <div class="my-[5px] pb-[50px] px-[10px]">
           <ApartmentCard
-            :data="roomDetailInfo.appApartmentItemVo"
+            :data="roomDetailInfo.apartmentItemVo"
           ></ApartmentCard>
         </div>
       </div>
@@ -228,11 +228,11 @@ const appointmentToViewHandle = () => {
 //#endregion
 onMounted(async () => {
   await getRoomDetailHandle();
-  console.log(roomDetailInfo.value.appApartmentItemVo.longitude);
+  console.log(roomDetailInfo.value.apartmentItemVo.longitude);
   await initMap();
   initMapPage({
-    lng: +roomDetailInfo.value.appApartmentItemVo.longitude,
-    lat: +roomDetailInfo.value.appApartmentItemVo.latitude
+    lng: +roomDetailInfo.value.apartmentItemVo.longitude,
+    lat: +roomDetailInfo.value.apartmentItemVo.latitude
   });
 });
 </script>
