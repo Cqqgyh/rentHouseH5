@@ -1,20 +1,20 @@
 <template>
   <van-skeleton :row="20" :loading="!apartmentDetailInfo?.id">
     <div class="page-container">
-    <!--  轮播图-->
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item
-        v-for="item in apartmentDetailInfo.graphVoList"
-        :key="item.url"
-      >
-        <van-image fit="fill" :src="item.url" width="100vw" height="35vh">
-          <template v-slot:error>加载失败</template>
-          <template v-slot:loading>
-            <van-loading type="spinner" size="20" />
-          </template>
-        </van-image>
-      </van-swipe-item>
-    </van-swipe>
+      <!--  轮播图-->
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item
+          v-for="item in apartmentDetailInfo.graphVoList"
+          :key="item.url"
+        >
+          <van-image fit="fill" :src="item.url" width="100vw" height="35vh">
+            <template v-slot:error>加载失败</template>
+            <template v-slot:loading>
+              <van-loading type="spinner" size="20" />
+            </template>
+          </van-image>
+        </van-swipe-item>
+      </van-swipe>
       <!--  公寓的信息-->
       <div class="card">
         <!--      标题-->
@@ -155,8 +155,8 @@ async function getRoomListHandler(pageInfo: ReqPage) {
 }
 //#region <高德地图相关>
 // 地图实例
-const { AMap } = useMap();
-function initMap(opts?: { lng: number; lat: number }) {
+const { AMap, initMap } = useMap();
+function initMapPage(opts?: { lng: number; lat: number }) {
   console.log("opts", opts);
   const map = new AMap.value.Map("container", {
     zoom: 19, //初始地图级别
@@ -188,7 +188,8 @@ const appointmentToViewHandle = () => {
 onMounted(async () => {
   await getApartmentDetailHandle();
   console.log(apartmentDetailInfo.value.longitude);
-  initMap({
+  await initMap();
+  initMapPage({
     lng: +apartmentDetailInfo.value.longitude,
     lat: +apartmentDetailInfo.value.latitude
   });

@@ -1,6 +1,10 @@
 // 高德地图hooks
 import AMapLoader from "@amap/amap-jsapi-loader";
-import { AMAP_MAP_KEY, AMAP_MAP_SERVICE_HOST } from "@/config/config";
+import {
+  AMAP_MAP_KEY,
+  AMAP_MAP_SECURITY_KEY,
+  AMAP_MAP_SERVICE_HOST
+} from "@/config/config";
 import "vant/es/toast/style";
 import { showFailToast } from "vant";
 import { onMounted, onUnmounted, ref } from "vue";
@@ -11,8 +15,8 @@ export const useMap = ({ domId }: { domId?: string } = {}) => {
   async function initMap() {
     try {
       (window as any)._AMapSecurityConfig = {
-        // securityJsCode: AMAP_MAP_SECURITY_KEY,
-        serviceHost: AMAP_MAP_SERVICE_HOST
+        securityJsCode: AMAP_MAP_SECURITY_KEY
+        // serviceHost: AMAP_MAP_SERVICE_HOST
       };
       AMap.value = await AMapLoader.load({
         key: AMAP_MAP_KEY, // 申请好的Web端开发者Key，首次调用 load 时必填
@@ -28,14 +32,12 @@ export const useMap = ({ domId }: { domId?: string } = {}) => {
   function destroyMap() {
     map.value && map.value.destroy();
   }
-  onMounted(() => {
-    initMap();
-  });
   onUnmounted(() => {
     destroyMap();
   });
   return {
     map,
-    AMap
+    AMap,
+    initMap
   };
 };

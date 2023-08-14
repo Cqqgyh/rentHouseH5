@@ -195,9 +195,10 @@ const getRoomDetailHandle = async () => {
 };
 //#region <高德地图相关>
 // 地图实例
-const { AMap } = useMap();
-function initMap(opts?: { lng: number; lat: number }) {
+const { AMap, initMap } = useMap();
+function initMapPage(opts?: { lng: number; lat: number }) {
   console.log("opts", opts);
+  console.log("AMap", AMap.value);
   const map = new AMap.value.Map("container", {
     zoom: 19, //初始地图级别
     center: [opts?.lng, opts?.lat], //初始地图中心点
@@ -228,7 +229,8 @@ const appointmentToViewHandle = () => {
 onMounted(async () => {
   await getRoomDetailHandle();
   console.log(roomDetailInfo.value.appApartmentItemVo.longitude);
-  initMap({
+  await initMap();
+  initMapPage({
     lng: +roomDetailInfo.value.appApartmentItemVo.longitude,
     lat: +roomDetailInfo.value.appApartmentItemVo.latitude
   });
