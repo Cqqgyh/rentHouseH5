@@ -1,200 +1,209 @@
 <template>
   <van-skeleton :row="20" :loading="!agreementDetailInfo?.roomId">
-    <!--    签约公寓-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">签约公寓</div>
-      <div class="my-[5px] px-[10px]">
-        <van-card @click="goApartmentDetail()">
-          <!--      title-->
-          <template #title>
-            <h2 class="text-[16px] font-bold mt-[25px] ml-[25px]">
-              {{ `${agreementDetailInfo.apartmentName}` }}
-            </h2>
-          </template>
-          <!--    thumb-->
-          <template #thumb>
-            <van-image
-              class="w-full h-full object-cover"
-              :src="
-                agreementDetailInfo.apartmentGraphVoList?.[0]?.url || '失败'
-              "
-            >
-              <template v-slot:error>加载失败</template>
-              <template v-slot:loading>
-                <van-loading type="spinner" size="20" />
-              </template>
-            </van-image>
-          </template>
-        </van-card>
+    <div class="page-container min-h-[100vh] py-[15px]">
+      <!--    签约公寓-->
+      <div>
+        <div class="base-info-title main-container py-[4px]">签约公寓</div>
+        <div class="my-[5px] px-[20px]">
+          <van-card @click="goApartmentDetail()" class="rounded-xl shadow">
+            <!--      title-->
+            <template #title>
+              <h2 class="text-[16px] font-bold mt-[25px] ml-[25px]">
+                {{ `${agreementDetailInfo.apartmentName}` }}
+              </h2>
+            </template>
+            <!--    thumb-->
+            <template #thumb>
+              <van-image
+                class="w-full h-full object-cover"
+                :src="
+                  agreementDetailInfo.apartmentGraphVoList?.[0]?.url || '失败'
+                "
+              >
+                <template v-slot:error>加载失败</template>
+                <template v-slot:loading>
+                  <van-loading type="spinner" size="20" />
+                </template>
+              </van-image>
+            </template>
+          </van-card>
+        </div>
       </div>
-    </div>
-    <!--    签约房间-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">签约房间</div>
-      <div class="my-[5px] px-[10px]">
-        <van-card @click="goRoomDetail()">
-          <!--      title-->
-          <template #title>
-            <h2 class="text-[16px] font-bold mt-[25px] ml-[25px]">
-              {{ `${agreementDetailInfo.roomNumber}房间` }}
-            </h2>
-          </template>
-          <!--    thumb-->
-          <template #thumb>
-            <van-image
-              class="w-full h-full object-cover"
-              :src="agreementDetailInfo.roomGraphVoList?.[0]?.url || '失败'"
-            >
-              <template v-slot:error>加载失败</template>
-              <template v-slot:loading>
-                <van-loading type="spinner" size="20" />
-              </template>
-            </van-image>
-          </template>
-        </van-card>
+      <!--    签约房间-->
+      <div>
+        <div class="base-info-title main-container py-[4px]">签约房间</div>
+        <div class="my-[5px] px-[20px]">
+          <van-card @click="goRoomDetail()" class="rounded-xl shadow">
+            <!--      title-->
+            <template #title>
+              <h2 class="text-[16px] font-bold mt-[25px] ml-[25px]">
+                {{ `${agreementDetailInfo.roomNumber}房间` }}
+              </h2>
+            </template>
+            <!--    thumb-->
+            <template #thumb>
+              <van-image
+                class="w-full h-full object-cover"
+                :src="agreementDetailInfo.roomGraphVoList?.[0]?.url || '失败'"
+              >
+                <template v-slot:error>加载失败</template>
+                <template v-slot:loading>
+                  <van-loading type="spinner" size="20" />
+                </template>
+              </van-image>
+            </template>
+          </van-card>
+        </div>
       </div>
-    </div>
-    <!--    承租人信息-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">签约房间</div>
-      <div class="main-container my-[5px]">
-        <van-row>
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="姓名"
-              v-model="agreementDetailInfo.name"
-            ></van-field>
-          </van-col>
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="手机号"
-              v-model="agreementDetailInfo.phone"
-            ></van-field>
-          </van-col>
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="身份证号"
-              v-model="agreementDetailInfo.identificationNumber"
-            ></van-field>
-          </van-col>
-        </van-row>
+      <!--    承租人信息-->
+      <div>
+        <div class="base-info-title main-container py-[4px]">签约房间</div>
+        <div class="main-container my-[5px]">
+          <div class="rounded-xl shadow overflow-hidden">
+            <van-row>
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="姓名"
+                  v-model="agreementDetailInfo.name"
+                ></van-field>
+              </van-col>
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="手机号"
+                  v-model="agreementDetailInfo.phone"
+                ></van-field>
+              </van-col>
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="身份证号"
+                  v-model="agreementDetailInfo.identificationNumber"
+                ></van-field>
+              </van-col>
+            </van-row>
+          </div>
+        </div>
       </div>
-    </div>
-    <!--    租约详情-->
-    <div>
-      <div class="base-info-title main-container py-[4px]">租约详情</div>
-      <div class="main-container my-[5px]">
-        <van-row>
-          <!--          租期-->
-          <van-col span="24">
-            <van-field
-              v-model="leaseTermInfo.text"
-              is-link
-              readonly
-              name="picker"
-              label-width="70px"
-              label="租期"
-              placeholder="点击选择租期"
-              @click="isAllowEdit && (showPickerLeaseTerm = true)"
-            />
-            <van-popup v-model:show="showPickerLeaseTerm" position="bottom">
-              <van-picker
-                title="租期"
-                :columns="leaseTermColumns"
-                @confirm="onConfirmLeaseTerm"
-                @cancel="showPickerLeaseTerm = false"
-              />
-            </van-popup>
-          </van-col>
-          <!--          合同租期-->
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="合同租期"
-              v-model="leaseDate"
-            ></van-field>
-          </van-col>
-          <!--          身份证号-->
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="身份证号"
-              v-model="agreementDetailInfo.identificationNumber"
-            ></van-field>
-          </van-col>
-          <!--          租金-->
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="租金"
-              v-model="rentText"
-            ></van-field>
-          </van-col>
-          <!--          押金-->
-          <van-col span="24">
-            <van-field
-              readonly
-              label-width="70px"
-              label="押金(元)"
-              v-model="depositText"
-            ></van-field>
-          </van-col>
-          <!--          支付方式-->
-          <van-col span="24">
-            <van-field
-              v-model="paymentTypeInfo.text"
-              is-link
-              readonly
-              name="picker"
-              label-width="70px"
-              label="支付方式"
-              placeholder="点击选择支付方式"
-              @click="isAllowEdit && (showPickerPaymentType = true)"
-            />
-            <van-popup v-model:show="showPickerPaymentType" position="bottom">
-              <van-picker
-                title="支付方式"
-                :columns="paymentTypeColumns"
-                @confirm="onConfirmPaymentType"
-                @cancel="showPickerLeaseTerm = false"
-              />
-            </van-popup>
-          </van-col>
-        </van-row>
+      <!--    租约详情-->
+      <div>
+        <div class="base-info-title main-container py-[4px]">租约详情</div>
+        <div class="main-container my-[5px]">
+          <div class="rounded-xl shadow overflow-hidden">
+            <van-row>
+              <!--          租期-->
+              <van-col span="24">
+                <van-field
+                  v-model="leaseTermInfo.text"
+                  is-link
+                  readonly
+                  name="picker"
+                  label-width="70px"
+                  label="租期"
+                  placeholder="点击选择租期"
+                  @click="isAllowEdit && (showPickerLeaseTerm = true)"
+                />
+                <van-popup v-model:show="showPickerLeaseTerm" position="bottom">
+                  <van-picker
+                    title="租期"
+                    :columns="leaseTermColumns"
+                    @confirm="onConfirmLeaseTerm"
+                    @cancel="showPickerLeaseTerm = false"
+                  />
+                </van-popup>
+              </van-col>
+              <!--          合同租期-->
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="合同租期"
+                  v-model="leaseDate"
+                ></van-field>
+              </van-col>
+              <!--          身份证号-->
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="身份证号"
+                  v-model="agreementDetailInfo.identificationNumber"
+                ></van-field>
+              </van-col>
+              <!--          租金-->
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="租金"
+                  v-model="rentText"
+                ></van-field>
+              </van-col>
+              <!--          押金-->
+              <van-col span="24">
+                <van-field
+                  readonly
+                  label-width="70px"
+                  label="押金(元)"
+                  v-model="depositText"
+                ></van-field>
+              </van-col>
+              <!--          支付方式-->
+              <van-col span="24">
+                <van-field
+                  v-model="paymentTypeInfo.text"
+                  is-link
+                  readonly
+                  name="picker"
+                  label-width="70px"
+                  label="支付方式"
+                  placeholder="点击选择支付方式"
+                  @click="isAllowEdit && (showPickerPaymentType = true)"
+                />
+                <van-popup
+                  v-model:show="showPickerPaymentType"
+                  position="bottom"
+                >
+                  <van-picker
+                    title="支付方式"
+                    :columns="paymentTypeColumns"
+                    @confirm="onConfirmPaymentType"
+                    @cancel="showPickerLeaseTerm = false"
+                  />
+                </van-popup>
+              </van-col>
+            </van-row>
+          </div>
+        </div>
       </div>
-    </div>
-    <!--    按钮-->
-    <div class="main-container py-[20px]">
-      <van-button
-        v-if="isAllowEdit"
-        type="primary"
-        block
-        round
-        class="m-t-20"
-        @click="submitHandle"
-      >
-        {{ isAddRenew ? "确认续约" : "保存" }}
-      </van-button>
-      <!--      确认签约-->
-      <van-button
-        v-if="isConfirmAgreement"
-        type="primary"
-        block
-        round
-        class="m-t-20"
-        @click="submitHandle"
-      >
-        确认签约
-      </van-button>
+      <!--    按钮-->
+      <div class="main-container py-[20px]">
+        <van-button
+          v-if="isAllowEdit"
+          type="primary"
+          block
+          round
+          class="m-t-20"
+          @click="submitHandle"
+        >
+          {{ isAddRenew ? "确认续约" : "保存" }}
+        </van-button>
+        <!--      确认签约-->
+        <van-button
+          v-if="isConfirmAgreement"
+          type="primary"
+          block
+          round
+          class="m-t-20"
+          @click="submitHandle"
+        >
+          确认签约
+        </van-button>
+      </div>
     </div>
   </van-skeleton>
 </template>
@@ -478,8 +487,11 @@ onMounted(async () => {
 
 <style scoped lang="less">
 .base-info-title {
-  background-color: var(--van-primary-background-color);
+  //background-color: var(--van-primary-background-color);
   font-weight: bold;
   //color: white;
+}
+::v-deep .van-card {
+  background: var(--van-background-2) !important;
 }
 </style>
