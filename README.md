@@ -6,20 +6,6 @@
 	<img src="src/assets/logo_melomini.png" alt="logo_melomini" style="width:20%;" />
 </div>
 
-<div align="center">
-	<a href="https://github.com/yulimchen/vue3-h5-template/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/yulimchen/vue3-h5-template.svg?style=flat-square" alt="license">
-  </a>
-  <a href="https://github.com/yulimchen/vue3-h5-template/releases">
-    <img src="https://img.shields.io/github/release/yulimchen/vue3-h5-template.svg?style=flat-square" alt="GitHub release">
-  </a>
-  <a href="https://github.com/yulimchen/vue3-h5-template">
-    <img src="https://img.shields.io/github/stars/yulimchen/vue3-h5-template?style=flat-square" alt="GitHub stars">
-  </a>
-  <a href="https://github.com/yulimchen/vue3-h5-template">
-    <img src="https://img.shields.io/github/forks/yulimchen/vue3-h5-template?style=flat-square" alt="GitHub forks">
-  </a>
-</div>
 
 
 <h1 align="center">Vue3 h5 template</h1>
@@ -42,21 +28,6 @@
 - [x] 首屏加载动画
 - [x] 开发环境调试面板
 - [ ] TODO: 生产环境 CDN 依赖
-
-
-
-## 在线预览Preview
-
-👓 [点击这里](https://yulimchen.github.io/vue3-h5-template/)（PC浏览器请切换手机端模式）
-
-
-
-
-## 截图
-
-![](docs/assets/img/Snipaste_2023-05-04_21-52-10.png)
-
-
 
 ## 运行项目
 
